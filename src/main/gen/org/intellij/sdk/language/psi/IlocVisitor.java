@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class IlocVisitor extends PsiElementVisitor {
 
+  public void visitArg(@NotNull IlocArg o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunction(@NotNull IlocFunction o) {
     visitPsiElement(o);
   }
@@ -15,7 +19,7 @@ public class IlocVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitOperator(@NotNull IlocOperator o) {
+  public void visitLine(@NotNull IlocLine o) {
     visitPsiElement(o);
   }
 

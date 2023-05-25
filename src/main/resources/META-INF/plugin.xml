@@ -39,5 +39,8 @@
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.IlocSyntaxHighlighterFactory"
         />
+        <colorSettingsPage
+                implementation="org.intellij.sdk.language.IlocColorSettingsPage"
+        />
     </extensions>
 </idea-plugin>

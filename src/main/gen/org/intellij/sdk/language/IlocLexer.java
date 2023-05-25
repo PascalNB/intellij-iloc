@@ -549,7 +549,7 @@ public class IlocLexer implements FlexLexer {
           // fall through
           case 16: break;
           case 6:
-            { return WORD;
+            { return ID;
             }
           // fall through
           case 17: break;

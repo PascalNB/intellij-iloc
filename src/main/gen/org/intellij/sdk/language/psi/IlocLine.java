@@ -5,6 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface IlocOperator extends PsiElement {
+public interface IlocLine extends PsiElement {
+
+  @NotNull
+  List<IlocArg> getArgList();
+
+  @NotNull
+  IlocFunction getFunction();
+
+  @Nullable
+  IlocLabel getLabel();
 
 }

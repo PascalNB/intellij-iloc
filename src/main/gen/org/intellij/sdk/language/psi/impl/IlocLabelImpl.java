@@ -29,8 +29,8 @@ public class IlocLabelImpl extends ASTWrapperPsiElement implements IlocLabel {
 
   @Override
   @NotNull
-  public PsiElement getWord() {
-    return findNotNullChildByType(WORD);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
 }

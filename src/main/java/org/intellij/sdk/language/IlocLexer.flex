@@ -29,7 +29,7 @@ STRING=('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")
 COMMENT=("//".*)
 VAR=@[a-zA-Z_0-9]+
 INTEGER=[0-9]+
-WORD=[a-zA-Z_0-9]+
+ID=[a-zA-Z_0-9]+
 SPACE=[ \t\n\x0B\f\r]+
 
 %%
@@ -45,7 +45,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {COMMENT}          { return COMMENT; }
   {VAR}              { return VAR; }
   {INTEGER}          { return INTEGER; }
-  {WORD}             { return WORD; }
+  {ID}               { return ID; }
   {SPACE}            { return SPACE; }
 
 }

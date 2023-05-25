@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface IlocRegister extends PsiElement {
 
   @NotNull
-  PsiElement getWord();
+  PsiElement getId();
 
 }

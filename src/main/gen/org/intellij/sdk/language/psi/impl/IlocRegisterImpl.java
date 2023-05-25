@@ -29,8 +29,8 @@ public class IlocRegisterImpl extends ASTWrapperPsiElement implements IlocRegist
 
   @Override
   @NotNull
-  public PsiElement getWord() {
-    return findNotNullChildByType(WORD);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
 }

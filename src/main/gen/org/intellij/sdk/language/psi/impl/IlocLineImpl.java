@@ -11,14 +11,14 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
 
-public class IlocFunctionImpl extends ASTWrapperPsiElement implements IlocFunction {
+public class IlocLineImpl extends ASTWrapperPsiElement implements IlocLine {
 
-  public IlocFunctionImpl(@NotNull ASTNode node) {
+  public IlocLineImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitFunction(this);
+    visitor.visitLine(this);
   }
 
   @Override
@@ -29,8 +29,20 @@ public class IlocFunctionImpl extends ASTWrapperPsiElement implements IlocFuncti
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public List<IlocArg> getArgList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocArg.class);
+  }
+
+  @Override
+  @NotNull
+  public IlocFunction getFunction() {
+    return findNotNullChildByClass(IlocFunction.class);
+  }
+
+  @Override
+  @Nullable
+  public IlocLabel getLabel() {
+    return findChildByClass(IlocLabel.class);
   }
 
 }

@@ -11,20 +11,44 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
 
-public class IlocOperatorImpl extends ASTWrapperPsiElement implements IlocOperator {
+public class IlocArgImpl extends ASTWrapperPsiElement implements IlocArg {
 
-  public IlocOperatorImpl(@NotNull ASTNode node) {
+  public IlocArgImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitOperator(this);
+    visitor.visitArg(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof IlocVisitor) accept((IlocVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public IlocRegister getRegister() {
+    return findChildByClass(IlocRegister.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInteger() {
+    return findChildByType(INTEGER);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getString() {
+    return findChildByType(STRING);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getVar() {
+    return findChildByType(VAR);
   }
 
 }

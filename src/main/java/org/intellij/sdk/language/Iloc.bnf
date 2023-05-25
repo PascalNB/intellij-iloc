@@ -21,27 +21,25 @@
         comment='regexp:(//.*)'
         var='regexp:@\w+'
         integer='regexp:\d+'
-        word='regexp:\w+'
+        id='regexp:\w+'
         space='regexp:\s+'
     ]
 }
 
 root ::= line*
 
-private line ::= !<<eof>> instruction
+line ::= !<<eof>> instruction
 
 private instruction ::= (label COLON)? operation
 
-label ::= word
+label ::= id
 
-private operation ::= function args? (operator args)?
+private operation ::= function args? ((OP_1 | OP_2) args)?
 
-function ::= word
-
-operator ::= OP_1 | OP_2
+function ::= id
 
 private args ::= arg (COMMA arg)*
 
-private arg ::=  integer | string | register | var
+arg ::=  integer | string | var | register
 
-register ::= word
+register ::= id
