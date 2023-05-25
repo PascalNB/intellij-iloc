@@ -29,25 +29,26 @@
                 implementationClass="org.intellij.sdk.language.IlocFileType"
                 fieldName="INSTANCE"
                 language="ILOC"
-                extensions="iloc"
-        />
+                extensions="iloc"/>
         <lang.parserDefinition
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocParserDefinition"
-        />
+                implementationClass="org.intellij.sdk.language.IlocParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.editor.IlocSyntaxHighlighterFactory"
-        />
+                implementationClass="org.intellij.sdk.language.editor.IlocSyntaxHighlighterFactory"/>
         <colorSettingsPage
-                implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"
-        />
+                implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"/>
         <annotator
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.editor.IlocAnnotator"/>
         <completion.contributor
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.IlocCompletionContributor"/>
-        
+        <lang.refactoringSupport
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocRefactoringSupportProvider"/>
+        <lang.commenter
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocCommenter"/>
     </extensions>
 </idea-plugin>

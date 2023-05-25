@@ -11,14 +11,14 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 import org.intellij.sdk.language.psi.*;
 import com.intellij.psi.PsiReference;
 
-public class IlocLabelImpl extends IlocNamedElementImpl implements IlocLabel {
+public class IlocVariableImpl extends IlocNamedElementImpl implements IlocVariable {
 
-  public IlocLabelImpl(@NotNull ASTNode node) {
+  public IlocVariableImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitLabel(this);
+    visitor.visitVariable(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class IlocLabelImpl extends IlocNamedElementImpl implements IlocLabel {
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public PsiElement getVar() {
+    return findNotNullChildByType(VAR);
   }
 
   @Override
@@ -39,7 +39,7 @@ public class IlocLabelImpl extends IlocNamedElementImpl implements IlocLabel {
   }
 
   @Override
-  public Class<IlocLabel> getType() {
+  public Class<IlocVariable> getType() {
     return IlocPsiImplUtil.getType(this);
   }
 

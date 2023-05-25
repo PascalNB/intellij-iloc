@@ -6,14 +6,14 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 
-public interface IlocRegister extends IlocNamedElement {
+public interface IlocVariable extends IlocNamedElement {
 
   @NotNull
-  PsiElement getId();
+  PsiElement getVar();
 
   String getName();
 
-  Class<IlocRegister> getType();
+  Class<IlocVariable> getType();
 
   PsiElement setName(String newName);
 

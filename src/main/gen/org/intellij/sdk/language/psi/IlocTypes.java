@@ -11,8 +11,8 @@ public interface IlocTypes {
   IElementType FUNCTION = new IlocElementType("FUNCTION");
   IElementType LABEL = new IlocElementType("LABEL");
   IElementType LABELS = new IlocElementType("LABELS");
-  IElementType LINE = new IlocElementType("LINE");
   IElementType REGISTER = new IlocElementType("REGISTER");
+  IElementType VARIABLE = new IlocElementType("VARIABLE");
 
   IElementType COLON = new IlocTokenType(":");
   IElementType COMMA = new IlocTokenType(",");
@@ -36,11 +36,11 @@ public interface IlocTypes {
       else if (type == LABELS) {
         return new IlocLabelsImpl(node);
       }
-      else if (type == LINE) {
-        return new IlocLineImpl(node);
-      }
       else if (type == REGISTER) {
         return new IlocRegisterImpl(node);
+      }
+      else if (type == VARIABLE) {
+        return new IlocVariableImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

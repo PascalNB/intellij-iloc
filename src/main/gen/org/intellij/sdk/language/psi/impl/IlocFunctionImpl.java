@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.intellij.sdk.language.psi.IlocTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
+import com.intellij.psi.PsiReference;
 
-public class IlocFunctionImpl extends ASTWrapperPsiElement implements IlocFunction {
+public class IlocFunctionImpl extends IlocNamedElementImpl implements IlocFunction {
 
   public IlocFunctionImpl(@NotNull ASTNode node) {
     super(node);
@@ -31,6 +31,31 @@ public class IlocFunctionImpl extends ASTWrapperPsiElement implements IlocFuncti
   @NotNull
   public PsiElement getId() {
     return findNotNullChildByType(ID);
+  }
+
+  @Override
+  public String getName() {
+    return IlocPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public Class<IlocFunction> getType() {
+    return IlocPsiImplUtil.getType(this);
+  }
+
+  @Override
+  public PsiElement setName(String newName) {
+    return IlocPsiImplUtil.setName(this, newName);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return IlocPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public PsiReference getReference() {
+    return IlocPsiImplUtil.getReference(this);
   }
 
 }
