@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+     width="16" height="16">
+    <g fill-rule="evenodd">
+        <path d="M7 1L3 5h4z" fill="#9aa7b0" fill-opacity=".8"/>
+        <path d="M8 1v5H3v2h10V1z" fill="#9aa7b0" fill-opacity=".8"/>
+        <path d="M1 16h15V9H1z" fill="#9aa7b0" fill-opacity=".7"/>
+    </g>
+    <text x="1.5" y="14.5" font-size="6" fill-opacity="1" font-weight="bold" font-family="sans-serif">ILOC</text>
+</svg>

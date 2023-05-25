@@ -1,0 +1,47 @@
+{
+    parserClass="org.intellij.sdk.language.parser.IlocParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Iloc"
+    psiImplClassSuffix="Impl"
+    psiPackage="org.intellij.sdk.language.psi"
+    psiImplPackage="org.intellij.sdk.language.psi.impl"
+
+    elementTypeHolderClass="org.intellij.sdk.language.psi.IlocTypes"
+    elementTypeClass="org.intellij.sdk.language.psi.IlocElementType"
+    tokenTypeClass="org.intellij.sdk.language.psi.IlocTokenType"
+
+    tokens=[
+        COLON=':'
+        COMMA=','
+        OP_1='=>'
+        OP_2='->'
+
+        string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+        comment='regexp:(//.*)'
+        var='regexp:@\w+'
+        integer='regexp:\d+'
+        word='regexp:\w+'
+        space='regexp:\s+'
+    ]
+}
+
+root ::= line*
+
+private line ::= !<<eof>> instruction
+
+private instruction ::= (label COLON)? operation
+
+label ::= word
+
+private operation ::= function args? (operator args)?
+
+function ::= word
+
+operator ::= OP_1 | OP_2
+
+private args ::= arg (COMMA arg)*
+
+private arg ::=  integer | string | register | var
+
+register ::= word

@@ -5,7 +5,7 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Intellij-iloc</name>
+    <name>ILOC</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor>Pascal</vendor>
@@ -14,7 +14,7 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Adds IntelliJ support for iloc.
+    Adds syntax highlighting support for ILOC instruction files.
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -24,6 +24,20 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <fileType
+                name="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocFileType"
+                fieldName="INSTANCE"
+                language="ILOC"
+                extensions="iloc"
+        />
+        <lang.parserDefinition
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocParserDefinition"
+        />
+        <lang.syntaxHighlighterFactory
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocSyntaxHighlighterFactory"
+        />
     </extensions>
 </idea-plugin>
