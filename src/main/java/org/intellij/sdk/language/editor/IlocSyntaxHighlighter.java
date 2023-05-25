@@ -22,9 +22,9 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey COMMENT =
         createTextAttributesKey("ILOC_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey IDENTIFIER =
-        createTextAttributesKey("ILOC_IDENTIFIER", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
-    public static final TextAttributesKey VAR =
-        createTextAttributesKey("ILOC_VAR", DefaultLanguageHighlighterColors.CONSTANT);
+        createTextAttributesKey("ILOC_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
+    public static final TextAttributesKey VARIABLE =
+        createTextAttributesKey("ILOC_VARIABLE", DefaultLanguageHighlighterColors.PARAMETER);
     public static final TextAttributesKey INTEGER =
         createTextAttributesKey("ILOC_INTEGER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey TOKEN =
@@ -32,11 +32,16 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BAD =
         createTextAttributesKey("ILOC_BAD", HighlighterColors.BAD_CHARACTER);
 
+    public static final TextAttributesKey FUNCTION =
+        createTextAttributesKey("ILOC_FUNCTION", DefaultLanguageHighlighterColors.FUNCTION_CALL);
+    public static final TextAttributesKey LABEL =
+        createTextAttributesKey("ILOC_LABEL", DefaultLanguageHighlighterColors.LABEL);
+
     private static final TextAttributesKey[] OPERATOR_KEYS = new TextAttributesKey[]{OPERATOR};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
-    private static final TextAttributesKey[] VAR_KEYS = new TextAttributesKey[]{VAR};
+    private static final TextAttributesKey[] VARIABLE_KEYS = new TextAttributesKey[]{VARIABLE};
     private static final TextAttributesKey[] INTEGER_KEYS = new TextAttributesKey[]{INTEGER};
     private static final TextAttributesKey[] TOKEN_KEYS = new TextAttributesKey[]{TOKEN};
     private static final TextAttributesKey[] BAD_KEYS = new TextAttributesKey[]{BAD};
@@ -58,7 +63,7 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
             return TOKEN_KEYS;
         }
         if (tokenType.equals(IlocTypes.VAR)) {
-            return VAR_KEYS;
+            return VARIABLE_KEYS;
         }
         if (tokenType.equals(IlocTypes.OP_1) || tokenType.equals(IlocTypes.OP_2)) {
             return OPERATOR_KEYS;

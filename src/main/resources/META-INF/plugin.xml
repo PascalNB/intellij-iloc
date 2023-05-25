@@ -42,5 +42,8 @@
         <colorSettingsPage
                 implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"
         />
+        <annotator
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.editor.IlocAnnotator"/>
     </extensions>
 </idea-plugin>
