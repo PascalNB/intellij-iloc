@@ -15,10 +15,6 @@ public class IlocVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
-  public void visitLabels(@NotNull IlocLabels o) {
-    visitPsiElement(o);
-  }
-
   public void visitRegister(@NotNull IlocRegister o) {
     visitNamedElement(o);
   }

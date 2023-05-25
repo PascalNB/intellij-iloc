@@ -10,7 +10,6 @@ public interface IlocTypes {
 
   IElementType FUNCTION = new IlocElementType("FUNCTION");
   IElementType LABEL = new IlocElementType("LABEL");
-  IElementType LABELS = new IlocElementType("LABELS");
   IElementType REGISTER = new IlocElementType("REGISTER");
   IElementType VARIABLE = new IlocElementType("VARIABLE");
 
@@ -19,6 +18,7 @@ public interface IlocTypes {
   IElementType COMMENT = new IlocTokenType("comment");
   IElementType ID = new IlocTokenType("id");
   IElementType INTEGER = new IlocTokenType("integer");
+  IElementType NL = new IlocTokenType("NL");
   IElementType OP_1 = new IlocTokenType("=>");
   IElementType OP_2 = new IlocTokenType("->");
   IElementType STRING = new IlocTokenType("string");
@@ -32,9 +32,6 @@ public interface IlocTypes {
       }
       else if (type == LABEL) {
         return new IlocLabelImpl(node);
-      }
-      else if (type == LABELS) {
-        return new IlocLabelsImpl(node);
       }
       else if (type == REGISTER) {
         return new IlocRegisterImpl(node);

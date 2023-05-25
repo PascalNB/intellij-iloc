@@ -138,14 +138,14 @@ public class IlocParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // label (COMMA label)*
-  public static boolean labels(PsiBuilder b, int l) {
+  static boolean labels(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "labels")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = label(b, l + 1);
     r = r && labels_1(b, l + 1);
-    exit_section_(b, m, LABELS, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -172,25 +172,23 @@ public class IlocParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> instruction
+  // instruction NL?
   static boolean line(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "line")) return false;
+    if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = line_0(b, l + 1);
-    r = r && instruction(b, l + 1);
+    r = instruction(b, l + 1);
+    r = r && line_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // !<<eof>>
-  private static boolean line_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "line_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NOT_);
-    r = !eof(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+  // NL?
+  private static boolean line_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "line_1")) return false;
+    consumeToken(b, NL);
+    return true;
   }
 
   /* ********************************************************** */

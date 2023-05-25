@@ -38,8 +38,7 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
-    "\1\0\25\u0100\1\u0200\11\u0100\1\u0300\17\u0100\1\u0400\247\u0100"+
-    "\10\u0500\u1020\u0100";
+    "\1\0\37\u0100\1\u0200\267\u0100\10\u0300\u1020\u0100";
 
   private static int [] zzUnpackcmap_top() {
     int [] result = new int[4352];
@@ -67,15 +66,14 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\4\2\22\0\1\1\1\0\1\3\4\0"+
-    "\1\4\4\0\1\5\1\6\1\0\1\7\12\10\1\11"+
-    "\2\0\1\12\1\13\1\0\1\14\32\15\1\0\1\16"+
-    "\2\0\1\15\1\0\32\15\12\0\1\2\32\0\1\1"+
-    "\u01df\0\1\1\177\0\13\1\35\0\2\2\5\0\1\1"+
-    "\57\0\1\1\240\0\1\1\377\0\u0100\17";
+    "\11\0\1\1\1\2\2\3\1\4\22\0\1\1\1\0"+
+    "\1\5\4\0\1\6\4\0\1\7\1\10\1\0\1\11"+
+    "\12\12\1\13\2\0\1\14\1\15\1\0\1\16\32\17"+
+    "\1\0\1\20\2\0\1\17\1\0\32\17\12\0\1\3"+
+    "\u01a2\0\2\3\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
-    int [] result = new int[1536];
+    int [] result = new int[1024];
     int offset = 0;
     offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);
     return result;
@@ -99,12 +97,12 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\2\1\1\3\2\1\1\4\1\5"+
-    "\2\1\1\6\1\0\1\7\3\0\1\10\1\11\1\12"+
-    "\1\13";
+    "\1\0\1\1\1\2\2\3\2\1\1\4\2\1\1\5"+
+    "\1\6\2\1\1\7\1\0\1\10\3\0\1\11\1\12"+
+    "\1\13\1\14";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[22];
+    int [] result = new int[24];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -129,12 +127,12 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\20\0\40\0\60\0\100\0\20\0\120\0\140"+
-    "\0\160\0\20\0\200\0\220\0\240\0\60\0\20\0\260"+
-    "\0\100\0\300\0\20\0\320\0\20\0\220";
+    "\0\0\0\21\0\42\0\21\0\63\0\104\0\125\0\21"+
+    "\0\146\0\167\0\210\0\21\0\231\0\252\0\273\0\104"+
+    "\0\21\0\314\0\125\0\335\0\21\0\356\0\21\0\252";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[22];
+    int [] result = new int[24];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -157,17 +155,17 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\2\3\1\4\1\5\1\6\1\7\1\10\1\11"+
-    "\1\12\1\13\1\2\1\14\1\15\2\2\21\0\2\3"+
-    "\15\0\3\16\1\17\12\16\1\20\1\16\4\21\1\17"+
-    "\11\21\1\22\1\21\13\0\1\23\13\0\1\24\20\0"+
-    "\1\11\4\0\1\15\15\0\1\25\14\0\1\26\4\0"+
-    "\1\26\12\0\1\15\4\0\1\15\2\0\2\16\1\0"+
-    "\14\16\1\0\2\21\1\0\14\21\1\0\2\24\1\0"+
-    "\14\24\1\0";
+    "\1\2\1\3\1\4\1\2\1\5\1\6\1\7\1\10"+
+    "\1\11\1\12\1\13\1\14\1\15\1\2\1\16\1\17"+
+    "\1\2\22\0\1\3\21\0\1\4\16\0\5\20\1\21"+
+    "\12\20\1\22\6\23\1\21\11\23\1\24\15\0\1\25"+
+    "\14\0\1\26\21\0\1\13\4\0\1\17\16\0\1\27"+
+    "\15\0\1\30\4\0\1\30\13\0\1\17\4\0\1\17"+
+    "\1\0\2\20\3\0\14\20\2\23\3\0\14\23\2\26"+
+    "\3\0\14\26";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[224];
+    int [] result = new int[255];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -205,11 +203,11 @@ public class IlocLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\3\1\1\11\3\1\1\11\3\1\1\0"+
-    "\1\11\3\0\1\11\1\1\1\11\1\1";
+    "\1\0\1\11\1\1\1\11\3\1\1\11\3\1\1\11"+
+    "\3\1\1\0\1\11\3\0\1\11\1\1\1\11\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[22];
+    int [] result = new int[24];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -527,57 +525,62 @@ public class IlocLexer implements FlexLexer {
             { return BAD_CHARACTER;
             }
           // fall through
-          case 12: break;
+          case 13: break;
           case 2:
             { return WHITE_SPACE;
             }
           // fall through
-          case 13: break;
-          case 3:
-            { return COMMA;
-            }
-          // fall through
           case 14: break;
-          case 4:
-            { return INTEGER;
+          case 3:
+            { return NL;
             }
           // fall through
           case 15: break;
-          case 5:
-            { return COLON;
+          case 4:
+            { return COMMA;
             }
           // fall through
           case 16: break;
-          case 6:
-            { return ID;
+          case 5:
+            { return INTEGER;
             }
           // fall through
           case 17: break;
-          case 7:
-            { return STRING;
+          case 6:
+            { return COLON;
             }
           // fall through
           case 18: break;
-          case 8:
-            { return OP_2;
+          case 7:
+            { return ID;
             }
           // fall through
           case 19: break;
-          case 9:
-            { return COMMENT;
+          case 8:
+            { return STRING;
             }
           // fall through
           case 20: break;
-          case 10:
-            { return OP_1;
+          case 9:
+            { return OP_2;
             }
           // fall through
           case 21: break;
-          case 11:
-            { return VAR;
+          case 10:
+            { return COMMENT;
             }
           // fall through
           case 22: break;
+          case 11:
+            { return OP_1;
+            }
+          // fall through
+          case 23: break;
+          case 12:
+            { return VAR;
+            }
+          // fall through
+          case 24: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

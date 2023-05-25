@@ -23,14 +23,14 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 %unicode
 
 EOL=\R
-WHITE_SPACE=\s+
 
+NL=(\r\n|\n|\r)
 STRING=('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")
 COMMENT=("//".*)
 VAR=@[a-zA-Z_0-9]+
 INTEGER=[0-9]+
 ID=[a-zA-Z_0-9]+
-SPACE=[ \t\n\x0B\f\r]+
+WHITE_SPACE=[\t ]+
 
 %%
 <YYINITIAL> {
@@ -41,12 +41,12 @@ SPACE=[ \t\n\x0B\f\r]+
   "=>"               { return OP_1; }
   "->"               { return OP_2; }
 
+  {NL}               { return NL; }
   {STRING}           { return STRING; }
   {COMMENT}          { return COMMENT; }
   {VAR}              { return VAR; }
   {INTEGER}          { return INTEGER; }
   {ID}               { return ID; }
-  {SPACE}            { return SPACE; }
 
 }
 

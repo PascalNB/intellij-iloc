@@ -17,21 +17,30 @@
         COMMA=','
         OP_1='=>'
         OP_2='->'
+        NL='regexp:(\r\n|\n|\r)'
 
         string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
         comment='regexp:(//.*)'
         var='regexp:@\w+'
         integer='regexp:\d+'
         id='regexp:\w+'
-        space='regexp:\s+'
+        white_space='regexp:[\t ]+'
     ]
 }
 
 root ::= line*
 
-private line ::= !<<eof>> instruction
+private line ::= instruction NL?
 
 private instruction ::= (label COLON)? operation
+
+private operation ::= function args? ((OP_1 args) | (OP_2 labels))?
+
+private args ::= arg (COMMA arg)*
+
+private labels ::= label (COMMA label)*
+
+private arg ::=  integer | string | variable | register
 
 label ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
@@ -39,19 +48,11 @@ label ::= id {
     methods=[getName getType setName getNameIdentifier getReference]
 }
 
-private operation ::= function args? ((OP_1 args) | (OP_2 labels))?
-
 function ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
     implements="org.intellij.sdk.language.psi.IlocNamedElement"
     methods=[getName getType setName getNameIdentifier getReference]
 }
-
-private args ::= arg (COMMA arg)*
-
-labels ::= label (COMMA label)*
-
-private arg ::=  integer | string | variable | register
 
 variable ::= var {
      mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
