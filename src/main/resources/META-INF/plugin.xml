@@ -37,10 +37,10 @@
         />
         <lang.syntaxHighlighterFactory
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocSyntaxHighlighterFactory"
+                implementationClass="org.intellij.sdk.language.editor.IlocSyntaxHighlighterFactory"
         />
         <colorSettingsPage
-                implementation="org.intellij.sdk.language.IlocColorSettingsPage"
+                implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"
         />
     </extensions>
 </idea-plugin>
