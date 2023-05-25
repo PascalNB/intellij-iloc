@@ -22,8 +22,6 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 %type IElementType
 %unicode
 
-EOL=\R
-
 NL=(\r\n|\n|\r)
 STRING=('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")
 COMMENT=("//".*)

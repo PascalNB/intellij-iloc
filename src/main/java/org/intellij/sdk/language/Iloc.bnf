@@ -28,9 +28,7 @@
     ]
 }
 
-root ::= line*
-
-private line ::= instruction NL?
+root ::= NL* instruction? (NL+ instruction)* NL*
 
 private instruction ::= (label COLON)? operation
 

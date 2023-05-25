@@ -172,26 +172,6 @@ public class IlocParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // instruction NL?
-  static boolean line(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "line")) return false;
-    if (!nextTokenIs(b, ID)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = instruction(b, l + 1);
-    r = r && line_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // NL?
-  private static boolean line_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "line_1")) return false;
-    consumeToken(b, NL);
-    return true;
-  }
-
-  /* ********************************************************** */
   // function args? ((OP_1 args) | (OP_2 labels))?
   static boolean operation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "operation")) return false;
@@ -265,13 +245,81 @@ public class IlocParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // line*
+  // NL* instruction? (NL+ instruction)* NL*
   static boolean root(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "root")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = root_0(b, l + 1);
+    r = r && root_1(b, l + 1);
+    r = r && root_2(b, l + 1);
+    r = r && root_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NL*
+  private static boolean root_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!line(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "root", c)) break;
+      if (!consumeToken(b, NL)) break;
+      if (!empty_element_parsed_guard_(b, "root_0", c)) break;
+    }
+    return true;
+  }
+
+  // instruction?
+  private static boolean root_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_1")) return false;
+    instruction(b, l + 1);
+    return true;
+  }
+
+  // (NL+ instruction)*
+  private static boolean root_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!root_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "root_2", c)) break;
+    }
+    return true;
+  }
+
+  // NL+ instruction
+  private static boolean root_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = root_2_0_0(b, l + 1);
+    r = r && instruction(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NL+
+  private static boolean root_2_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_2_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, NL);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, NL)) break;
+      if (!empty_element_parsed_guard_(b, "root_2_0_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NL*
+  private static boolean root_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "root_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, NL)) break;
+      if (!empty_element_parsed_guard_(b, "root_3", c)) break;
     }
     return true;
   }

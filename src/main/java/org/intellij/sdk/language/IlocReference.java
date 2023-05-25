@@ -75,7 +75,6 @@ public class IlocReference extends PsiReferenceBase<IlocNamedElement> implements
 
     @Override
     public PsiElement handleElementRename(@NotNull String newElementName) throws IncorrectOperationException {
-        System.out.println(newElementName);
         return getElement().setName(newElementName);
     }
 
