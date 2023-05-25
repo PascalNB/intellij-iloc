@@ -29,12 +29,6 @@ public class IlocLineImpl extends ASTWrapperPsiElement implements IlocLine {
 
   @Override
   @NotNull
-  public List<IlocArg> getArgList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocArg.class);
-  }
-
-  @Override
-  @NotNull
   public IlocFunction getFunction() {
     return findNotNullChildByClass(IlocFunction.class);
   }
@@ -43,6 +37,18 @@ public class IlocLineImpl extends ASTWrapperPsiElement implements IlocLine {
   @Nullable
   public IlocLabel getLabel() {
     return findChildByClass(IlocLabel.class);
+  }
+
+  @Override
+  @Nullable
+  public IlocLabels getLabels() {
+    return findChildByClass(IlocLabels.class);
+  }
+
+  @Override
+  @NotNull
+  public List<IlocRegister> getRegisterList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocRegister.class);
   }
 
 }

@@ -45,5 +45,9 @@
         <annotator
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.editor.IlocAnnotator"/>
+        <completion.contributor
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocCompletionContributor"/>
+        
     </extensions>
 </idea-plugin>

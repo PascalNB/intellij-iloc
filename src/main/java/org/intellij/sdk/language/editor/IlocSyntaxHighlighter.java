@@ -35,7 +35,9 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey FUNCTION =
         createTextAttributesKey("ILOC_FUNCTION", DefaultLanguageHighlighterColors.FUNCTION_CALL);
     public static final TextAttributesKey LABEL =
-        createTextAttributesKey("ILOC_LABEL", DefaultLanguageHighlighterColors.LABEL);
+        createTextAttributesKey("ILOC_LABEL", DefaultLanguageHighlighterColors.KEYWORD);
+    public static final TextAttributesKey REGISTER =
+        createTextAttributesKey("ILOC_REGISTER", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
 
     private static final TextAttributesKey[] OPERATOR_KEYS = new TextAttributesKey[]{OPERATOR};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};

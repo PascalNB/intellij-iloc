@@ -17,6 +17,7 @@ public class IlocColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
         new AttributesDescriptor("Identifier", IlocSyntaxHighlighter.IDENTIFIER),
+        new AttributesDescriptor("Register", IlocSyntaxHighlighter.REGISTER),
         new AttributesDescriptor("Function", IlocSyntaxHighlighter.FUNCTION),
         new AttributesDescriptor("Label", IlocSyntaxHighlighter.LABEL),
         new AttributesDescriptor("Integer", IlocSyntaxHighlighter.INTEGER),

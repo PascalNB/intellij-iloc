@@ -34,12 +34,14 @@ private instruction ::= (label COLON)? operation
 
 label ::= id
 
-private operation ::= function args? ((OP_1 | OP_2) args)?
+private operation ::= function args? ((OP_1 args) | (OP_2 labels))?
 
 function ::= id
 
 private args ::= arg (COMMA arg)*
 
-arg ::=  integer | string | var | register
+labels ::= label (COMMA label)*
+
+private arg ::=  integer | string | var | register
 
 register ::= id

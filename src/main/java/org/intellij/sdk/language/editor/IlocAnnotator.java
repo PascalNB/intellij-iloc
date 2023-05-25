@@ -7,6 +7,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.psi.PsiElement;
 import org.intellij.sdk.language.psi.IlocFunction;
 import org.intellij.sdk.language.psi.IlocLabel;
+import org.intellij.sdk.language.psi.IlocRegister;
 import org.jetbrains.annotations.NotNull;
 
 public class IlocAnnotator implements Annotator {
@@ -22,6 +23,10 @@ public class IlocAnnotator implements Annotator {
         if (parent instanceof IlocLabel label && label.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.LABEL);
             return;
+        }
+
+        if (parent instanceof IlocRegister register && register.getId() == element) {
+            highlight(holder, element, IlocSyntaxHighlighter.REGISTER);
         }
 
     }

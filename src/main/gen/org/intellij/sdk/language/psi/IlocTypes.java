@@ -8,9 +8,9 @@ import org.intellij.sdk.language.psi.impl.*;
 
 public interface IlocTypes {
 
-  IElementType ARG = new IlocElementType("ARG");
   IElementType FUNCTION = new IlocElementType("FUNCTION");
   IElementType LABEL = new IlocElementType("LABEL");
+  IElementType LABELS = new IlocElementType("LABELS");
   IElementType LINE = new IlocElementType("LINE");
   IElementType REGISTER = new IlocElementType("REGISTER");
 
@@ -27,14 +27,14 @@ public interface IlocTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARG) {
-        return new IlocArgImpl(node);
-      }
-      else if (type == FUNCTION) {
+      if (type == FUNCTION) {
         return new IlocFunctionImpl(node);
       }
       else if (type == LABEL) {
         return new IlocLabelImpl(node);
+      }
+      else if (type == LABELS) {
+        return new IlocLabelsImpl(node);
       }
       else if (type == LINE) {
         return new IlocLineImpl(node);
