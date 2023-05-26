@@ -11,14 +11,14 @@ import java.util.function.Function;
 
 public class IlocUtil {
 
-    public static <T extends PsiElement> List<T> find(IlocFile file, Class<T> clazz, Function<T, String> extractor,
-        String key) {
+    public static <T extends PsiElement> List<PsiElement> find(IlocFile file, Class<T> clazz,
+        Function<PsiElement, String> extractor, String key) {
 
-        List<T> result = new ArrayList<>();
-        T[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
+        List<PsiElement> result = new ArrayList<>();
+        PsiElement[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
 
         if (ts != null) {
-            for (T t : ts) {
+            for (PsiElement t : ts) {
                 if (key.equals(extractor.apply(t))) {
                     result.add(t);
                 }
@@ -28,15 +28,14 @@ public class IlocUtil {
         return result;
     }
 
-    public static <T extends PsiElement> List<T> find(IlocFile file, Class<T> clazz) {
-        List<T> result = new ArrayList<>();
-        T[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
+    public static <T extends PsiElement> List<PsiElement> find(IlocFile file, Class<T> clazz) {
+        PsiElement[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
 
         if (ts != null) {
-            result.addAll(Arrays.asList(ts));
+            return Arrays.asList(ts);
         }
 
-        return result;
+        return List.of();
     }
 
 }

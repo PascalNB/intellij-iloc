@@ -4,78 +4,109 @@ import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
-import com.intellij.util.IncorrectOperationException;
-import org.intellij.sdk.language.psi.IlocFile;
-import org.intellij.sdk.language.psi.IlocNamedElement;
+import org.intellij.sdk.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class IlocReference extends PsiReferenceBase<IlocNamedElement> implements PsiPolyVariantReference {
+public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
     private final String key;
 
-    public IlocReference(@NotNull IlocNamedElement element, TextRange rangeInElement) {
+    public IlocReference(@NotNull PsiElement element, TextRange rangeInElement) {
         super(element, rangeInElement);
         key = element.getText().substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
     }
 
     @Override
     public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
-        List<ResolveResult> results = new ArrayList<>();
-
         IlocFile file;
         if (getElement().getContainingFile() instanceof IlocFile f) {
             file = f;
         } else {
-            return results.toArray(new ResolveResult[0]);
+            return ResolveResult.EMPTY_ARRAY;
         }
 
-        final List<? extends IlocNamedElement> found =
-            IlocUtil.find(file, getElement().getType(), IlocNamedElement::getName, key);
+        List<PsiElement> found;
 
-        for (IlocNamedElement element : found) {
-            results.add(new PsiElementResolveResult(element));
+        if (getElement() instanceof IlocLabelRef) {
+            found = IlocUtil.find(file, IlocLabel.class, i -> ((IlocLabel) i).getName(), key);
+        } else if (getElement() instanceof IlocRegisterRef) {
+            found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
+        } else if (getElement() instanceof IlocRegister) {
+            found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
+        } else {
+            return ResolveResult.EMPTY_ARRAY;
         }
 
-        return results.toArray(new ResolveResult[0]);
+        if (found.isEmpty()) {
+            return ResolveResult.EMPTY_ARRAY;
+        }
+
+        List<ResolveResult> result = new ArrayList<>();
+
+        for (PsiElement element : found) {
+            result.add(new PsiElementResolveResult(element));
+        }
+
+        return result.toArray(new ResolveResult[0]);
     }
 
     @Override
     public @Nullable PsiElement resolve() {
-        ResolveResult[] resolveResults = multiResolve(false);
-        return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
+        ResolveResult[] result = multiResolve(false);
+        if (result.length == 0) {
+            return null;
+        }
+        return result[0].getElement();
     }
 
     @Override
     public Object @NotNull [] getVariants() {
-        List<LookupElement> variants = new ArrayList<>();
-
         IlocFile file;
         if (getElement().getContainingFile() instanceof IlocFile f) {
             file = f;
         } else {
-            return variants.toArray();
+            return new Object[0];
         }
 
-        List<? extends IlocNamedElement> elements = IlocUtil.find(file, getElement().getType());
+        List<PsiElement> found;
+        Icon icon;
 
-        for (final IlocNamedElement element : elements) {
-            if (element.getText() != null && element.getText().length() > 0) {
-                variants.add(LookupElementBuilder.create(element)
-                    .withIcon(IlocIcons.FILE)
-                    .withTypeText(element.getContainingFile().getName())
-                );
-            }
+        if (getElement() instanceof IlocLabelRef) {
+            found = IlocUtil.find(file, IlocLabel.class);
+            icon = IlocIcons.LABEL;
+        } else if (getElement() instanceof IlocRegisterRef) {
+            found = IlocUtil.find(file, IlocRegister.class);
+            icon = IlocIcons.REGISTER;
+        } else if (getElement() instanceof IlocVariable) {
+            found = IlocUtil.find(file, IlocVariable.class);
+            icon = IlocIcons.VARIABLE;
+        } else if (getElement() instanceof IlocRegister) {
+            found = IlocUtil.find(file, IlocRegister.class);
+            icon = IlocIcons.REGISTER;
+        } else {
+            return new Object[0];
         }
-        return variants.toArray();
-    }
 
-    @Override
-    public PsiElement handleElementRename(@NotNull String newElementName) throws IncorrectOperationException {
-        return getElement().setName(newElementName);
+        if (found.isEmpty()) {
+            return new Object[0];
+        }
+
+        Map<String, LookupElement> result = new HashMap<>();
+
+        for (PsiElement element : found) {
+            String text = element.getText();
+            LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
+            result.put(text, lookupElement);
+        }
+
+        return result.values().toArray();
     }
 
 }

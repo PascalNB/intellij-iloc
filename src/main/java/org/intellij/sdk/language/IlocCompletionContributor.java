@@ -25,6 +25,7 @@ public class IlocCompletionContributor extends CompletionContributor {
         @Override
         protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context,
             @NotNull CompletionResultSet result) {
+
             PsiElement element = parameters.getPosition();
             PsiElement parent = element.getParent();
 
@@ -46,7 +47,9 @@ public class IlocCompletionContributor extends CompletionContributor {
     };
 
     static {
-        FUNCTION_ELEMENTS = Arrays.stream(FUNCTIONS).map(LookupElementBuilder::create).toList();
+        FUNCTION_ELEMENTS = Arrays.stream(FUNCTIONS)
+            .map(f -> LookupElementBuilder.create(f).withIcon(IlocIcons.FUNCTION))
+            .toList();
     }
 
 }

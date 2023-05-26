@@ -32,13 +32,25 @@ root ::= NL* instruction? (NL+ instruction)* NL*
 
 private instruction ::= (label COLON)? operation
 
-private operation ::= function args? ((OP_1 args) | (OP_2 labels))?
+private operation ::= function inArgs? ((OP_1 outArgs) | (OP_2 labels))?
 
-private args ::= arg (COMMA arg)*
+private outArgs ::= outArg (COMMA outArg)*
 
-private labels ::= label (COMMA label)*
+private inArgs ::= inArg (COMMA inArg)*
 
-private arg ::=  integer | string | variable | register
+private labels ::= labelRef (COMMA labelRef)*
+
+private inArg ::= integer | string | variable | registerRef
+
+private outArg ::=  integer | string | variable | register
+
+labelRef ::= id {
+    methods=[getReference]
+}
+
+registerRef ::= id {
+    methods=[getReference]
+}
 
 label ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"

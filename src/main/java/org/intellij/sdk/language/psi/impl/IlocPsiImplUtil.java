@@ -54,7 +54,7 @@ public class IlocPsiImplUtil {
         return keyNode != null ? keyNode.getPsi() : null;
     }
 
-    public static PsiReference getReference(IlocNamedElement element) {
+    public static PsiReference getReference(PsiElement element) {
         return new IlocReference(element, element.getFirstChild().getTextRangeInParent());
     }
 
