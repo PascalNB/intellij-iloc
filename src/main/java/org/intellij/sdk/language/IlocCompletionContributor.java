@@ -10,7 +10,6 @@ import org.intellij.sdk.language.psi.IlocFunction;
 import org.intellij.sdk.language.psi.IlocTypes;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import static com.intellij.patterns.PlatformPatterns.psiElement;
@@ -20,7 +19,7 @@ public class IlocCompletionContributor extends CompletionContributor {
     private static final Collection<? extends LookupElement> FUNCTION_ELEMENTS;
 
     static {
-        FUNCTION_ELEMENTS = Arrays.stream(IlocDefaultFunctions.values())
+        FUNCTION_ELEMENTS = IlocDefaultFunctions.all().stream()
             .map(f -> LookupElementBuilder.create(f.getName())
                 .withTypeText(f.getSignature())
                 .withIcon(IlocIcons.FUNCTION)

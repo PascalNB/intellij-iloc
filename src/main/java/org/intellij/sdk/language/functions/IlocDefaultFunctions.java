@@ -1,5 +1,8 @@
 package org.intellij.sdk.language.functions;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum IlocDefaultFunctions implements IlocFunctionDeclaration {
     NOP("nop", ""),
     ADD("add", "reg0 + reg1 => reg2"),
@@ -74,5 +77,9 @@ public enum IlocDefaultFunctions implements IlocFunctionDeclaration {
     @Override
     public String getSignature() {
         return signature;
+    }
+
+    public static List<IlocFunctionDeclaration> all() {
+        return Arrays.asList(values());
     }
 }

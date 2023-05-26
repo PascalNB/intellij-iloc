@@ -50,5 +50,8 @@
         <lang.commenter
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.IlocCommenter"/>
+        <lang.formatter
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.IlocFormattingModelBuilder"/>
     </extensions>
 </idea-plugin>
