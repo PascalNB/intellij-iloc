@@ -13,8 +13,6 @@ public interface IlocVariable extends IlocNamedElement {
 
   String getName();
 
-  Class<IlocVariable> getType();
-
   PsiElement setName(String newName);
 
   PsiElement getNameIdentifier();

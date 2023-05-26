@@ -39,11 +39,6 @@ public class IlocRegisterImpl extends IlocNamedElementImpl implements IlocRegist
   }
 
   @Override
-  public Class<IlocRegister> getType() {
-    return IlocPsiImplUtil.getType(this);
-  }
-
-  @Override
   public PsiElement setName(String newName) {
     return IlocPsiImplUtil.setName(this, newName);
   }

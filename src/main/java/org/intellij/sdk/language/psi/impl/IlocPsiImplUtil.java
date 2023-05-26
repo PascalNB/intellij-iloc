@@ -24,22 +24,6 @@ public class IlocPsiImplUtil {
         return element.getId().getText();
     }
 
-    public static Class<IlocFunction> getType(IlocFunction element) {
-        return IlocFunction.class;
-    }
-
-    public static Class<IlocLabel> getType(IlocLabel element) {
-        return IlocLabel.class;
-    }
-
-    public static Class<IlocRegister> getType(IlocRegister element) {
-        return IlocRegister.class;
-    }
-
-    public static Class<IlocVariable> getType(IlocVariable element) {
-        return IlocVariable.class;
-    }
-
     public static PsiElement setName(IlocNamedElement element, String newName) {
         ASTNode keyNode = element.getFirstChild().getNode();
         if (keyNode != null) {
@@ -52,6 +36,10 @@ public class IlocPsiImplUtil {
     public static PsiElement getNameIdentifier(IlocNamedElement element) {
         ASTNode keyNode = element.getNode().getFirstChildNode();
         return keyNode != null ? keyNode.getPsi() : null;
+    }
+
+    public static PsiReference getReference(IlocVariableRef variableRef) {
+        return new IlocReference(variableRef, variableRef.getId().getTextRangeInParent());
     }
 
     public static PsiReference getReference(PsiElement element) {

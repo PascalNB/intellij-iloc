@@ -83,16 +83,34 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
         if (getElement() instanceof IlocLabelRef) {
             found = IlocUtil.find(file, IlocLabel.class);
             icon = IlocIcons.LABEL;
+
         } else if (getElement() instanceof IlocVariableRef) {
-            found = new ArrayList<>(IlocUtil.find(file, IlocVariable.class));
-            found.addAll(IlocUtil.find(file, IlocVariableRef.class));
             icon = IlocIcons.VARIABLE;
+
+            Map<String, LookupElement> result = new HashMap<>();
+
+            for (PsiElement element : IlocUtil.find(file, IlocVariable.class)) {
+                String text = element.getText();
+                LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
+                result.put(text, lookupElement);
+            }
+
+            for (PsiElement element : IlocUtil.find(file, IlocVariableRef.class)) {
+                String text = ((IlocVariableRef) element).getId().getText();
+                LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
+                result.put(text, lookupElement);
+            }
+
+            return result.values().toArray();
+
         } else if (getElement() instanceof IlocRegisterRef) {
             found = IlocUtil.find(file, IlocRegister.class);
             icon = IlocIcons.REGISTER;
+
         } else if (getElement() instanceof IlocRegister) {
             found = IlocUtil.find(file, IlocRegister.class);
             icon = IlocIcons.REGISTER;
+
         } else {
             return new Object[0];
         }

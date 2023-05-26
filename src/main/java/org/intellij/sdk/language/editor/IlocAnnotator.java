@@ -40,7 +40,7 @@ public class IlocAnnotator implements Annotator {
             highlight(holder, element, IlocSyntaxHighlighter.VARIABLE);
         }
 
-        if (parent instanceof IlocVariableRef variable && variable.getId() == element) {
+        if (parent instanceof IlocVariableRef) {
             highlight(holder, element, IlocSyntaxHighlighter.VARIABLE);
         }
 

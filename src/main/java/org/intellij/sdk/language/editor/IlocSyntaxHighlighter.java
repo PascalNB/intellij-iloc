@@ -23,8 +23,6 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
         createTextAttributesKey("ILOC_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey IDENTIFIER =
         createTextAttributesKey("ILOC_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
-    public static final TextAttributesKey VARIABLE =
-        createTextAttributesKey("ILOC_VARIABLE", DefaultLanguageHighlighterColors.PARAMETER);
     public static final TextAttributesKey INTEGER =
         createTextAttributesKey("ILOC_INTEGER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey TOKEN =
@@ -38,12 +36,13 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
         createTextAttributesKey("ILOC_LABEL", DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey REGISTER =
         createTextAttributesKey("ILOC_REGISTER", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
+    public static final TextAttributesKey VARIABLE =
+        createTextAttributesKey("ILOC_VARIABLE", DefaultLanguageHighlighterColors.PARAMETER);
 
     private static final TextAttributesKey[] OPERATOR_KEYS = new TextAttributesKey[]{OPERATOR};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
-    private static final TextAttributesKey[] VARIABLE_KEYS = new TextAttributesKey[]{VARIABLE};
     private static final TextAttributesKey[] INTEGER_KEYS = new TextAttributesKey[]{INTEGER};
     private static final TextAttributesKey[] TOKEN_KEYS = new TextAttributesKey[]{TOKEN};
     private static final TextAttributesKey[] BAD_KEYS = new TextAttributesKey[]{BAD};
@@ -55,6 +54,7 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
+
         if (tokenType.equals(IlocTypes.ID)) {
             return IDENTIFIER_KEYS;
         }

@@ -39,11 +39,6 @@ public class IlocFunctionImpl extends IlocNamedElementImpl implements IlocFuncti
   }
 
   @Override
-  public Class<IlocFunction> getType() {
-    return IlocPsiImplUtil.getType(this);
-  }
-
-  @Override
   public PsiElement setName(String newName) {
     return IlocPsiImplUtil.setName(this, newName);
   }

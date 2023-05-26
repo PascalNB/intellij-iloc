@@ -13,8 +13,6 @@ public interface IlocFunction extends IlocNamedElement {
 
   String getName();
 
-  Class<IlocFunction> getType();
-
   PsiElement setName(String newName);
 
   PsiElement getNameIdentifier();

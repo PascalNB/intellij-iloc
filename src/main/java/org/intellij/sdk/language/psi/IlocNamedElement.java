@@ -4,6 +4,4 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 
 public interface IlocNamedElement extends PsiNameIdentifierOwner {
 
-    Class<? extends IlocNamedElement> getType();
-
 }

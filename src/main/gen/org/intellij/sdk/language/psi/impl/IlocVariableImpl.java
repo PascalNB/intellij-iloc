@@ -39,11 +39,6 @@ public class IlocVariableImpl extends IlocNamedElementImpl implements IlocVariab
   }
 
   @Override
-  public Class<IlocVariable> getType() {
-    return IlocPsiImplUtil.getType(this);
-  }
-
-  @Override
   public PsiElement setName(String newName) {
     return IlocPsiImplUtil.setName(this, newName);
   }

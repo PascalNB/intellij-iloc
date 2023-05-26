@@ -13,8 +13,6 @@ public interface IlocLabel extends IlocNamedElement {
 
   String getName();
 
-  Class<IlocLabel> getType();
-
   PsiElement setName(String newName);
 
   PsiElement getNameIdentifier();

@@ -26,10 +26,10 @@
         LAB='#'
         NL='regexp:[\r\n]'
 
-        string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
         comment='regexp:(//.*)'
         integer='regexp:\d+'
         id='regexp:\w+'
+        string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
         white_space='regexp:[\t ]+'
     ]
 }
@@ -49,11 +49,11 @@ private inArgs ::= inArg (COMMA inArg)*
 
 private labels ::= labelRef (COMMA labelRef)*
 
-private inArg ::= integer | string | VAR variableRef | LAB labelRef | registerRef
+private inArg ::= integer | string | variableRef | LAB labelRef | registerRef
 
-private outArg ::=  integer | string | VAR variableRef | LAB labelRef | register
+private outArg ::=  integer | string | variableRef | LAB labelRef | register
 
-labelRef ::= '#'? id {
+labelRef ::= id {
     methods=[getReference]
 }
 
@@ -61,30 +61,30 @@ registerRef ::= id {
     methods=[getReference]
 }
 
-variableRef ::= id {
+variableRef ::= VAR id {
     methods=[getReference]
 }
 
 label ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
     implements="org.intellij.sdk.language.psi.IlocNamedElement"
-    methods=[getName getType setName getNameIdentifier getReference]
+    methods=[getName setName getNameIdentifier getReference]
 }
 
 function ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
     implements="org.intellij.sdk.language.psi.IlocNamedElement"
-    methods=[getName getType setName getNameIdentifier getReference]
+    methods=[getName setName getNameIdentifier getReference]
 }
 
 variable ::= id {
      mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
      implements="org.intellij.sdk.language.psi.IlocNamedElement"
-     methods=[getName getType setName getNameIdentifier getReference]
+     methods=[getName setName getNameIdentifier getReference]
 }
 
 register ::= id {
     mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
     implements="org.intellij.sdk.language.psi.IlocNamedElement"
-    methods=[getName getType setName getNameIdentifier getReference]
+    methods=[getName setName getNameIdentifier getReference]
 }

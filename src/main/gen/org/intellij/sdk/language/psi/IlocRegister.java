@@ -13,8 +13,6 @@ public interface IlocRegister extends IlocNamedElement {
 
   String getName();
 
-  Class<IlocRegister> getType();
-
   PsiElement setName(String newName);
 
   PsiElement getNameIdentifier();

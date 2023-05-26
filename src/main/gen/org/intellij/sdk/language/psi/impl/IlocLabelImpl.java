@@ -39,11 +39,6 @@ public class IlocLabelImpl extends IlocNamedElementImpl implements IlocLabel {
   }
 
   @Override
-  public Class<IlocLabel> getType() {
-    return IlocPsiImplUtil.getType(this);
-  }
-
-  @Override
   public PsiElement setName(String newName) {
     return IlocPsiImplUtil.setName(this, newName);
   }
