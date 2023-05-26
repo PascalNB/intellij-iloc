@@ -15,24 +15,33 @@
     tokens=[
         COLON=':'
         COMMA=','
-        OP_1='=>'
-        OP_2='->'
-        NL='regexp:(\r\n|\n|\r)'
+        DARROW='=>'
+        ARROW='->'
+        SEMI=';'
+        LSQ='['
+        RSQ=']'
+        ASS='<-'
+        MINUS='-'
+        VAR='@'
+        LAB='#'
+        NL='regexp:[\r\n]'
 
         string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
         comment='regexp:(//.*)'
-        var='regexp:@\w+'
         integer='regexp:\d+'
         id='regexp:\w+'
         white_space='regexp:[\t ]+'
     ]
 }
 
-root ::= NL* instruction? (NL+ instruction)* NL*
+program ::= NL* decl* instruction? (NL* instruction)* NL* <<eof>>
+
+private decl ::= variable ASS integer NL+
 
 private instruction ::= (label COLON)? operation
+    | (label COLON)? LSQ NL* operation (NL+ operation)* NL* RSQ
 
-private operation ::= function inArgs? ((OP_1 outArgs) | (OP_2 labels))?
+private operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI?
 
 private outArgs ::= outArg (COMMA outArg)*
 
@@ -40,15 +49,19 @@ private inArgs ::= inArg (COMMA inArg)*
 
 private labels ::= labelRef (COMMA labelRef)*
 
-private inArg ::= integer | string | variable | registerRef
+private inArg ::= integer | string | VAR variableRef | LAB labelRef | registerRef
 
-private outArg ::=  integer | string | variable | register
+private outArg ::=  integer | string | VAR variableRef | LAB labelRef | register
 
-labelRef ::= id {
+labelRef ::= '#'? id {
     methods=[getReference]
 }
 
 registerRef ::= id {
+    methods=[getReference]
+}
+
+variableRef ::= id {
     methods=[getReference]
 }
 
@@ -64,7 +77,7 @@ function ::= id {
     methods=[getName getType setName getNameIdentifier getReference]
 }
 
-variable ::= var {
+variable ::= id {
      mixin="org.intellij.sdk.language.psi.impl.IlocNamedElementImpl"
      implements="org.intellij.sdk.language.psi.IlocNamedElement"
      methods=[getName getType setName getNameIdentifier getReference]

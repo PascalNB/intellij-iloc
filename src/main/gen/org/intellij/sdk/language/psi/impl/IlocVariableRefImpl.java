@@ -8,17 +8,18 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.intellij.sdk.language.psi.IlocTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
 import com.intellij.psi.PsiReference;
 
-public class IlocVariableImpl extends IlocNamedElementImpl implements IlocVariable {
+public class IlocVariableRefImpl extends ASTWrapperPsiElement implements IlocVariableRef {
 
-  public IlocVariableImpl(@NotNull ASTNode node) {
+  public IlocVariableRefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitVariable(this);
+    visitor.visitVariableRef(this);
   }
 
   @Override
@@ -31,26 +32,6 @@ public class IlocVariableImpl extends IlocNamedElementImpl implements IlocVariab
   @NotNull
   public PsiElement getId() {
     return findNotNullChildByType(ID);
-  }
-
-  @Override
-  public String getName() {
-    return IlocPsiImplUtil.getName(this);
-  }
-
-  @Override
-  public Class<IlocVariable> getType() {
-    return IlocPsiImplUtil.getType(this);
-  }
-
-  @Override
-  public PsiElement setName(String newName) {
-    return IlocPsiImplUtil.setName(this, newName);
-  }
-
-  @Override
-  public PsiElement getNameIdentifier() {
-    return IlocPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override

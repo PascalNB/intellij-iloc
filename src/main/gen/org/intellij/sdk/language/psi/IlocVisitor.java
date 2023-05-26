@@ -31,6 +31,10 @@ public class IlocVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitVariableRef(@NotNull IlocVariableRef o) {
+    visitPsiElement(o);
+  }
+
   public void visitNamedElement(@NotNull IlocNamedElement o) {
     visitPsiElement(o);
   }

@@ -21,7 +21,7 @@ public class IlocPsiImplUtil {
     }
 
     public static String getName(IlocVariable element) {
-        return element.getVar().getText();
+        return element.getId().getText();
     }
 
     public static Class<IlocFunction> getType(IlocFunction element) {

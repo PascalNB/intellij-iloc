@@ -64,10 +64,8 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(IlocTypes.COMMA) || tokenType.equals(IlocTypes.COLON)) {
             return TOKEN_KEYS;
         }
-        if (tokenType.equals(IlocTypes.VAR)) {
-            return VARIABLE_KEYS;
-        }
-        if (tokenType.equals(IlocTypes.OP_1) || tokenType.equals(IlocTypes.OP_2)) {
+        if (tokenType.equals(IlocTypes.DARROW) || tokenType.equals(IlocTypes.ARROW)
+            || tokenType.equals(IlocTypes.ASS)) {
             return OPERATOR_KEYS;
         }
         if (tokenType.equals(IlocTypes.COMMENT)) {

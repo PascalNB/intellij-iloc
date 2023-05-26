@@ -32,7 +32,6 @@ public class IlocCompletionContributor extends CompletionContributor {
             if (parent instanceof IlocFunction function && function.getId() == element) {
                 result.addAllElements(FUNCTION_ELEMENTS);
             }
-
         }
 
     }

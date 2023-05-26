@@ -11,9 +11,4 @@ public class IlocTokenType extends IElementType {
         super(debugName, IlocLanguage.INSTANCE);
     }
 
-    @Override
-    public String toString() {
-        return "ILOCTokenType." + super.toString();
-    }
-
 }

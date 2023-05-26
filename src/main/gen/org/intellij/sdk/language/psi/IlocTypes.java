@@ -14,17 +14,24 @@ public interface IlocTypes {
   IElementType REGISTER = new IlocElementType("REGISTER");
   IElementType REGISTER_REF = new IlocElementType("REGISTER_REF");
   IElementType VARIABLE = new IlocElementType("VARIABLE");
+  IElementType VARIABLE_REF = new IlocElementType("VARIABLE_REF");
 
+  IElementType ARROW = new IlocTokenType("->");
+  IElementType ASS = new IlocTokenType("<-");
   IElementType COLON = new IlocTokenType(":");
   IElementType COMMA = new IlocTokenType(",");
   IElementType COMMENT = new IlocTokenType("comment");
+  IElementType DARROW = new IlocTokenType("=>");
   IElementType ID = new IlocTokenType("id");
   IElementType INTEGER = new IlocTokenType("integer");
+  IElementType LAB = new IlocTokenType("#");
+  IElementType LSQ = new IlocTokenType("[");
+  IElementType MINUS = new IlocTokenType("-");
   IElementType NL = new IlocTokenType("NL");
-  IElementType OP_1 = new IlocTokenType("=>");
-  IElementType OP_2 = new IlocTokenType("->");
+  IElementType RSQ = new IlocTokenType("]");
+  IElementType SEMI = new IlocTokenType(";");
   IElementType STRING = new IlocTokenType("string");
-  IElementType VAR = new IlocTokenType("var");
+  IElementType VAR = new IlocTokenType("@");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -46,6 +53,9 @@ public interface IlocTypes {
       }
       else if (type == VARIABLE) {
         return new IlocVariableImpl(node);
+      }
+      else if (type == VARIABLE_REF) {
+        return new IlocVariableRefImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

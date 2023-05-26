@@ -40,6 +40,8 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
             found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
         } else if (getElement() instanceof IlocRegister) {
             found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
+        } else if (getElement() instanceof IlocVariableRef) {
+            found = IlocUtil.find(file, IlocVariable.class, i -> ((IlocVariable) i).getName(), key);
         } else {
             return ResolveResult.EMPTY_ARRAY;
         }
@@ -81,12 +83,13 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
         if (getElement() instanceof IlocLabelRef) {
             found = IlocUtil.find(file, IlocLabel.class);
             icon = IlocIcons.LABEL;
+        } else if (getElement() instanceof IlocVariableRef) {
+            found = new ArrayList<>(IlocUtil.find(file, IlocVariable.class));
+            found.addAll(IlocUtil.find(file, IlocVariableRef.class));
+            icon = IlocIcons.VARIABLE;
         } else if (getElement() instanceof IlocRegisterRef) {
             found = IlocUtil.find(file, IlocRegister.class);
             icon = IlocIcons.REGISTER;
-        } else if (getElement() instanceof IlocVariable) {
-            found = IlocUtil.find(file, IlocVariable.class);
-            icon = IlocIcons.VARIABLE;
         } else if (getElement() instanceof IlocRegister) {
             found = IlocUtil.find(file, IlocRegister.class);
             icon = IlocIcons.REGISTER;
