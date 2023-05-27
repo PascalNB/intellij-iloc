@@ -29,7 +29,7 @@ public class IlocAnnotator implements Annotator {
 
             List<PsiElement> found = IlocUtil.find(file, IlocLabel.class, IlocLabel::getName, name);
             if (!found.isEmpty() && found.get(0) != label) {
-                annotate(holder, element, HighlightSeverity.WARNING, "Label has already been declared");
+                annotate(holder, element, HighlightSeverity.ERROR, "Label has already been declared");
             }
 
             if (!IlocUtil.exists(file, IlocLabelRef.class, IlocLabelRef::getText, name)) {
@@ -64,7 +64,7 @@ public class IlocAnnotator implements Annotator {
             String name = variable.getName();
             List<PsiElement> found = IlocUtil.find(file, IlocVariable.class, IlocVariable::getName, name);
             if (!found.isEmpty() && found.get(0) != variable) {
-                annotate(holder, element, HighlightSeverity.WARNING, "Variable has already been declared");
+                annotate(holder, element, HighlightSeverity.ERROR, "Variable has already been declared");
             }
 
             if (!IlocUtil.exists(file, IlocVariableRef.class, IlocVariableRef::getName, name)) {
