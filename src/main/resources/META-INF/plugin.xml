@@ -52,6 +52,10 @@
                 implementationClass="org.intellij.sdk.language.IlocCommenter"/>
         <lang.formatter
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocFormattingModelBuilder"/>
+                implementationClass="org.intellij.sdk.language.format.IlocFormattingModelBuilder"/>
+        <codeStyleSettingsProvider
+                implementation="org.intellij.sdk.language.format.IlocCodeStyleSettingsProvider"/>
+        <langCodeStyleSettingsProvider
+                implementation="org.intellij.sdk.language.format.IlocLanguageCodeStyleSettingsProvider"/>
     </extensions>
 </idea-plugin>

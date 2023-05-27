@@ -9,18 +9,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
     private final String key;
 
-    public IlocReference(@NotNull PsiElement element, TextRange rangeInElement) {
+    public IlocReference(@NotNull PsiElement element, TextRange rangeInElement, String key) {
         super(element, rangeInElement);
-        key = element.getText().substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
+        this.key = key;
     }
 
     @Override
@@ -77,12 +74,21 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
             return new Object[0];
         }
 
-        List<PsiElement> found;
+        Collection<PsiElement> found;
         Icon icon;
 
         if (getElement() instanceof IlocLabelRef) {
-            found = IlocUtil.find(file, IlocLabel.class);
             icon = IlocIcons.LABEL;
+
+            Map<String, LookupElement> result = new HashMap<>();
+
+            for (PsiElement element : IlocUtil.find(file, IlocLabel.class)) {
+                String text = ((IlocLabel) element).getName();
+                LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
+                result.put(text, lookupElement);
+            }
+
+            return result.values().toArray();
 
         } else if (getElement() instanceof IlocVariableRef) {
             icon = IlocIcons.VARIABLE;

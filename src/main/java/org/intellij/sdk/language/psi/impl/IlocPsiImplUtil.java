@@ -1,26 +1,29 @@
 package org.intellij.sdk.language.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import org.intellij.sdk.language.IlocReference;
 import org.intellij.sdk.language.psi.*;
+import org.jetbrains.annotations.NotNull;
 
 public class IlocPsiImplUtil {
 
-    public static String getName(IlocFunction element) {
+    public static @NotNull String getName(IlocFunction element) {
         return element.getId().getText();
     }
 
-    public static String getName(IlocLabel element) {
+    public static @NotNull String getName(IlocLabel element) {
+        String text = element.getLabeldecl().getText();
+        return text.substring(0, text.length() - 1);
+    }
+
+    public static @NotNull String getName(IlocRegister element) {
         return element.getId().getText();
     }
 
-    public static String getName(IlocRegister element) {
-        return element.getId().getText();
-    }
-
-    public static String getName(IlocVariable element) {
+    public static @NotNull String getName(IlocVariable element) {
         return element.getId().getText();
     }
 
@@ -39,11 +42,15 @@ public class IlocPsiImplUtil {
     }
 
     public static PsiReference getReference(IlocVariableRef variableRef) {
-        return new IlocReference(variableRef, variableRef.getId().getTextRangeInParent());
+        TextRange range = variableRef.getId().getTextRangeInParent();
+        String key = variableRef.getId().getText();
+        return new IlocReference(variableRef, range, key);
     }
 
     public static PsiReference getReference(PsiElement element) {
-        return new IlocReference(element, element.getFirstChild().getTextRangeInParent());
+        TextRange range = element.getFirstChild().getTextRangeInParent();
+        String key = element.getText().substring(range.getStartOffset(), range.getEndOffset());
+        return new IlocReference(element, range, key);
     }
 
 }

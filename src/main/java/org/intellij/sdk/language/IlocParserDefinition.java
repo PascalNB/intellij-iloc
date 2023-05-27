@@ -37,7 +37,7 @@ public class IlocParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull TokenSet getCommentTokens() {
-        return IlocTokenSets.COMMENTS;
+        return TokenSet.EMPTY;
     }
 
     @Override

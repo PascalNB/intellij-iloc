@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.intellij.sdk.language.psi.IlocTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
-import com.intellij.psi.PsiReference;
 
-public class IlocRegisterImpl extends IlocNamedElementImpl implements IlocRegister {
+public class IlocBlockImpl extends ASTWrapperPsiElement implements IlocBlock {
 
-  public IlocRegisterImpl(@NotNull ASTNode node) {
+  public IlocBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitRegister(this);
+    visitor.visitBlock(this);
   }
 
   @Override
@@ -29,28 +29,14 @@ public class IlocRegisterImpl extends IlocNamedElementImpl implements IlocRegist
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public List<IlocInstruction> getInstructionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocInstruction.class);
   }
 
   @Override
-  public @NotNull String getName() {
-    return IlocPsiImplUtil.getName(this);
-  }
-
-  @Override
-  public PsiElement setName(String newName) {
-    return IlocPsiImplUtil.setName(this, newName);
-  }
-
-  @Override
-  public PsiElement getNameIdentifier() {
-    return IlocPsiImplUtil.getNameIdentifier(this);
-  }
-
-  @Override
-  public PsiReference getReference() {
-    return IlocPsiImplUtil.getReference(this);
+  @NotNull
+  public IlocLabel getLabel() {
+    return findNotNullChildByClass(IlocLabel.class);
   }
 
 }

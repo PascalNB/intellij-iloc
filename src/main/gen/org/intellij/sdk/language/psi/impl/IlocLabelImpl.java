@@ -29,12 +29,12 @@ public class IlocLabelImpl extends IlocNamedElementImpl implements IlocLabel {
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public PsiElement getLabeldecl() {
+    return findNotNullChildByType(LABELDECL);
   }
 
   @Override
-  public String getName() {
+  public @NotNull String getName() {
     return IlocPsiImplUtil.getName(this);
   }
 

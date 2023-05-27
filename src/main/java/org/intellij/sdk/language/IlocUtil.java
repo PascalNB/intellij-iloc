@@ -5,7 +5,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.intellij.sdk.language.psi.IlocFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -15,27 +15,19 @@ public class IlocUtil {
         Function<PsiElement, String> extractor, String key) {
 
         List<PsiElement> result = new ArrayList<>();
-        PsiElement[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
+        Collection<PsiElement> ts = PsiTreeUtil.findChildrenOfType(file, clazz);
 
-        if (ts != null) {
-            for (PsiElement t : ts) {
-                if (key.equals(extractor.apply(t))) {
-                    result.add(t);
-                }
+        for (PsiElement t : ts) {
+            if (key.equals(extractor.apply(t))) {
+                result.add(t);
             }
         }
 
         return result;
     }
 
-    public static <T extends PsiElement> List<PsiElement> find(IlocFile file, Class<T> clazz) {
-        PsiElement[] ts = PsiTreeUtil.getChildrenOfType(file, clazz);
-
-        if (ts != null) {
-            return Arrays.asList(ts);
-        }
-
-        return List.of();
+    public static <T extends PsiElement> Collection<PsiElement> find(IlocFile file, Class<T> clazz) {
+        return PsiTreeUtil.findChildrenOfType(file, clazz);
     }
 
 }

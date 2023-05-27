@@ -7,8 +7,20 @@ import com.intellij.psi.PsiElement;
 
 public class IlocVisitor extends PsiElementVisitor {
 
+  public void visitBlock(@NotNull IlocBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDecl(@NotNull IlocDecl o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunction(@NotNull IlocFunction o) {
     visitNamedElement(o);
+  }
+
+  public void visitInstruction(@NotNull IlocInstruction o) {
+    visitPsiElement(o);
   }
 
   public void visitLabel(@NotNull IlocLabel o) {

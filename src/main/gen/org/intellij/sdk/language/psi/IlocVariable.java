@@ -11,7 +11,7 @@ public interface IlocVariable extends IlocNamedElement {
   @NotNull
   PsiElement getId();
 
-  String getName();
+  @NotNull String getName();
 
   PsiElement setName(String newName);
 

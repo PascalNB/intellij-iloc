@@ -8,7 +8,10 @@ import org.intellij.sdk.language.psi.impl.*;
 
 public interface IlocTypes {
 
+  IElementType BLOCK = new IlocElementType("BLOCK");
+  IElementType DECL = new IlocElementType("DECL");
   IElementType FUNCTION = new IlocElementType("FUNCTION");
+  IElementType INSTRUCTION = new IlocElementType("INSTRUCTION");
   IElementType LABEL = new IlocElementType("LABEL");
   IElementType LABEL_REF = new IlocElementType("LABEL_REF");
   IElementType REGISTER = new IlocElementType("REGISTER");
@@ -25,9 +28,9 @@ public interface IlocTypes {
   IElementType ID = new IlocTokenType("id");
   IElementType INTEGER = new IlocTokenType("integer");
   IElementType LAB = new IlocTokenType("#");
+  IElementType LABELDECL = new IlocTokenType("labeldecl");
+  IElementType LINEBREAK = new IlocTokenType("linebreak");
   IElementType LSQ = new IlocTokenType("[");
-  IElementType MINUS = new IlocTokenType("-");
-  IElementType NL = new IlocTokenType("NL");
   IElementType RSQ = new IlocTokenType("]");
   IElementType SEMI = new IlocTokenType(";");
   IElementType STRING = new IlocTokenType("string");
@@ -36,8 +39,17 @@ public interface IlocTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == FUNCTION) {
+      if (type == BLOCK) {
+        return new IlocBlockImpl(node);
+      }
+      else if (type == DECL) {
+        return new IlocDeclImpl(node);
+      }
+      else if (type == FUNCTION) {
         return new IlocFunctionImpl(node);
+      }
+      else if (type == INSTRUCTION) {
+        return new IlocInstructionImpl(node);
       }
       else if (type == LABEL) {
         return new IlocLabelImpl(node);

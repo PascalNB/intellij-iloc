@@ -9,9 +9,9 @@ import com.intellij.psi.PsiReference;
 public interface IlocLabel extends IlocNamedElement {
 
   @NotNull
-  PsiElement getId();
+  PsiElement getLabeldecl();
 
-  String getName();
+  @NotNull String getName();
 
   PsiElement setName(String newName);
 

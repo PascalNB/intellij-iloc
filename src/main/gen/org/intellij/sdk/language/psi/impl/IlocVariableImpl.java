@@ -34,7 +34,7 @@ public class IlocVariableImpl extends IlocNamedElementImpl implements IlocVariab
   }
 
   @Override
-  public String getName() {
+  public @NotNull String getName() {
     return IlocPsiImplUtil.getName(this);
   }
 

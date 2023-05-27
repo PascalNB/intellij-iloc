@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.intellij.sdk.language.psi.IlocTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
-import com.intellij.psi.PsiReference;
 
-public class IlocRegisterImpl extends IlocNamedElementImpl implements IlocRegister {
+public class IlocDeclImpl extends ASTWrapperPsiElement implements IlocDecl {
 
-  public IlocRegisterImpl(@NotNull ASTNode node) {
+  public IlocDeclImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitRegister(this);
+    visitor.visitDecl(this);
   }
 
   @Override
@@ -29,28 +29,20 @@ public class IlocRegisterImpl extends IlocNamedElementImpl implements IlocRegist
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public IlocVariable getVariable() {
+    return findNotNullChildByClass(IlocVariable.class);
   }
 
   @Override
-  public @NotNull String getName() {
-    return IlocPsiImplUtil.getName(this);
+  @Nullable
+  public PsiElement getComment() {
+    return findChildByType(COMMENT);
   }
 
   @Override
-  public PsiElement setName(String newName) {
-    return IlocPsiImplUtil.setName(this, newName);
-  }
-
-  @Override
-  public PsiElement getNameIdentifier() {
-    return IlocPsiImplUtil.getNameIdentifier(this);
-  }
-
-  @Override
-  public PsiReference getReference() {
-    return IlocPsiImplUtil.getReference(this);
+  @NotNull
+  public PsiElement getInteger() {
+    return findNotNullChildByType(INTEGER);
   }
 
 }

@@ -34,7 +34,7 @@ public class IlocFunctionImpl extends IlocNamedElementImpl implements IlocFuncti
   }
 
   @Override
-  public String getName() {
+  public @NotNull String getName() {
     return IlocPsiImplUtil.getName(this);
   }
 

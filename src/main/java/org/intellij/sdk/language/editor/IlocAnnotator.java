@@ -18,7 +18,7 @@ public class IlocAnnotator implements Annotator {
             return;
         }
 
-        if (parent instanceof IlocLabel label && label.getId() == element) {
+        if (parent instanceof IlocLabel label && label.getLabeldecl() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.LABEL);
             return;
         }
