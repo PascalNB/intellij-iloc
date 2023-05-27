@@ -13,7 +13,7 @@ public interface IlocDecl extends PsiElement {
   @Nullable
   PsiElement getComment();
 
-  @NotNull
+  @Nullable
   PsiElement getInteger();
 
 }

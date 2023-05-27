@@ -40,16 +40,16 @@
                 implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"/>
         <annotator
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.editor.IlocAnnotator"/>
+                implementationClass="org.intellij.sdk.language.IlocAnnotator"/>
         <completion.contributor
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocCompletionContributor"/>
+                implementationClass="org.intellij.sdk.language.reference.IlocCompletionContributor"/>
         <lang.refactoringSupport
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocRefactoringSupportProvider"/>
+                implementationClass="org.intellij.sdk.language.reference.IlocRefactoringSupportProvider"/>
         <lang.commenter
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocCommenter"/>
+                implementationClass="org.intellij.sdk.language.format.IlocCommenter"/>
         <lang.formatter
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.format.IlocFormattingModelBuilder"/>

@@ -1,4 +1,4 @@
-package org.intellij.sdk.language;
+package org.intellij.sdk.language.format;
 
 import com.intellij.lang.Commenter;
 import org.jetbrains.annotations.Nullable;

@@ -4,8 +4,8 @@ import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
-import org.intellij.sdk.language.IlocReference;
 import org.intellij.sdk.language.psi.*;
+import org.intellij.sdk.language.reference.IlocReference;
 import org.jetbrains.annotations.NotNull;
 
 public class IlocPsiImplUtil {

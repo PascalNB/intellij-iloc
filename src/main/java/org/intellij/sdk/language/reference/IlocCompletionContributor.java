@@ -1,10 +1,11 @@
-package org.intellij.sdk.language;
+package org.intellij.sdk.language.reference;
 
 import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ProcessingContext;
+import org.intellij.sdk.language.IlocIcons;
 import org.intellij.sdk.language.functions.IlocDefaultFunctions;
 import org.intellij.sdk.language.psi.IlocFunction;
 import org.intellij.sdk.language.psi.IlocTypes;

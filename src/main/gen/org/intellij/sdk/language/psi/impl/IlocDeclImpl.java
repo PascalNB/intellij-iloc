@@ -40,9 +40,9 @@ public class IlocDeclImpl extends ASTWrapperPsiElement implements IlocDecl {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getInteger() {
-    return findNotNullChildByType(INTEGER);
+    return findChildByType(INTEGER);
   }
 
 }

@@ -8,6 +8,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import org.intellij.sdk.language.IlocLexerAdapter;
+import org.intellij.sdk.language.psi.IlocTokenSets;
 import org.intellij.sdk.language.psi.IlocTypes;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,18 +55,16 @@ public class IlocSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
-
         if (tokenType.equals(IlocTypes.ID)) {
             return IDENTIFIER_KEYS;
         }
         if (tokenType.equals(IlocTypes.INTEGER)) {
             return INTEGER_KEYS;
         }
-        if (tokenType.equals(IlocTypes.COMMA) || tokenType.equals(IlocTypes.COLON)) {
+        if (IlocTokenSets.SYNTAX.contains(tokenType)) {
             return TOKEN_KEYS;
         }
-        if (tokenType.equals(IlocTypes.DARROW) || tokenType.equals(IlocTypes.ARROW)
-            || tokenType.equals(IlocTypes.ASS)) {
+        if (IlocTokenSets.OPERATORS.contains(tokenType)) {
             return OPERATOR_KEYS;
         }
         if (tokenType.equals(IlocTypes.COMMENT)) {

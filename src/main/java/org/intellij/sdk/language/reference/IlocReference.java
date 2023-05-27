@@ -1,9 +1,11 @@
-package org.intellij.sdk.language;
+package org.intellij.sdk.language.reference;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
+import org.intellij.sdk.language.IlocIcons;
+import org.intellij.sdk.language.IlocUtil;
 import org.intellij.sdk.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

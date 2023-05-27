@@ -1,4 +1,4 @@
-package org.intellij.sdk.language;
+package org.intellij.sdk.language.reference;
 
 import com.intellij.lang.refactoring.RefactoringSupportProvider;
 import com.intellij.psi.PsiElement;

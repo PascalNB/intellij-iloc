@@ -2,7 +2,6 @@ package org.intellij.sdk.language;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.intellij.sdk.language.psi.IlocFile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,13 +10,26 @@ import java.util.function.Function;
 
 public class IlocUtil {
 
-    public static <T extends PsiElement> List<PsiElement> find(IlocFile file, Class<T> clazz,
-        Function<PsiElement, String> extractor, String key) {
+    public static <T extends PsiElement> boolean exists(PsiElement file, Class<T> clazz,
+        Function<T, String> extractor, String key) {
+
+        Collection<T> ts = PsiTreeUtil.findChildrenOfType(file, clazz);
+        for (T t : ts) {
+            if (key.equals(extractor.apply(t))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static <T extends PsiElement> List<PsiElement> find(PsiElement file, Class<T> clazz,
+        Function<T, String> extractor, String key) {
 
         List<PsiElement> result = new ArrayList<>();
-        Collection<PsiElement> ts = PsiTreeUtil.findChildrenOfType(file, clazz);
+        Collection<T> ts = PsiTreeUtil.findChildrenOfType(file, clazz);
 
-        for (PsiElement t : ts) {
+        for (T t : ts) {
             if (key.equals(extractor.apply(t))) {
                 result.add(t);
             }
@@ -26,7 +38,7 @@ public class IlocUtil {
         return result;
     }
 
-    public static <T extends PsiElement> Collection<PsiElement> find(IlocFile file, Class<T> clazz) {
+    public static <T extends PsiElement> Collection<PsiElement> find(PsiElement file, Class<T> clazz) {
         return PsiTreeUtil.findChildrenOfType(file, clazz);
     }
 
