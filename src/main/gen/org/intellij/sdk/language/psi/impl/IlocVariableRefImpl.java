@@ -35,6 +35,11 @@ public class IlocVariableRefImpl extends ASTWrapperPsiElement implements IlocVar
   }
 
   @Override
+  public @NotNull String getName() {
+    return IlocPsiImplUtil.getName(this);
+  }
+
+  @Override
   public PsiReference getReference() {
     return IlocPsiImplUtil.getReference(this);
   }

@@ -11,6 +11,8 @@ public interface IlocVariableRef extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  @NotNull String getName();
+
   PsiReference getReference();
 
 }

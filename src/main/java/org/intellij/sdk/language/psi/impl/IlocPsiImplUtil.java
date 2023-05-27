@@ -26,6 +26,10 @@ public class IlocPsiImplUtil {
     public static @NotNull String getName(IlocVariable element) {
         return element.getId().getText();
     }
+    
+    public static @NotNull String getName(IlocVariableRef element) {
+        return element.getText().substring(1);
+    }
 
     public static PsiElement setName(IlocNamedElement element, String newName) {
         ASTNode keyNode = element.getFirstChild().getNode();

@@ -83,7 +83,7 @@ registerRef ::= id {
 }
 
 variableRef ::= VAR id {
-    methods=[getReference]
+    methods=[getName getReference]
 }
 
 label ::= labeldecl {

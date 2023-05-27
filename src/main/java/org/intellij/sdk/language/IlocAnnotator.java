@@ -67,7 +67,7 @@ public class IlocAnnotator implements Annotator {
                 annotate(holder, element, HighlightSeverity.WARNING, "Variable has already been declared");
             }
 
-            if (!IlocUtil.exists(file, IlocVariableRef.class, IlocVariableRef::getText, name)) {
+            if (!IlocUtil.exists(file, IlocVariableRef.class, IlocVariableRef::getName, name)) {
                 annotate(holder, element, HighlightSeverity.WEAK_WARNING, "Variable is unused");
             }
         }
