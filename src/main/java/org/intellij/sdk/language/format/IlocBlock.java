@@ -62,7 +62,7 @@ public class IlocBlock implements ASTBlock {
             if (block.getInstructionList().get(0) == childPsi) {
                 return Indent.getNoneIndent();
             }
-            return Indent.getNormalIndent();
+            return Indent.getSmartIndent(Indent.Type.NORMAL);
         }
 
         return Indent.getNoneIndent();
@@ -113,12 +113,10 @@ public class IlocBlock implements ASTBlock {
         if (newChildIndex == 0) {
             return new ChildAttributes(Indent.getNoneIndent(), null);
         }
-        if (psi instanceof IlocFile) {
+        if (psi instanceof IlocFile || psi instanceof PsiComment) {
             return ChildAttributes.DELEGATE_TO_PREV_CHILD;
         }
-        if (psi instanceof PsiComment) {
-            return ChildAttributes.DELEGATE_TO_PREV_CHILD;
-        }
+
         if (psi instanceof org.intellij.sdk.language.psi.IlocBlock) {
             return new ChildAttributes(Indent.getSmartIndent(Indent.Type.NORMAL), null);
         }

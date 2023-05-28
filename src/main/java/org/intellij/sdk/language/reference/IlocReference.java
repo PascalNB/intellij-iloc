@@ -34,13 +34,13 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
         List<PsiElement> found;
 
         if (getElement() instanceof IlocLabelRef) {
-            found = IlocUtil.find(file, IlocLabel.class, i -> ((IlocLabel) i).getName(), key);
+            found = IlocUtil.find(file, IlocLabel.class, IlocLabel::getName, key);
         } else if (getElement() instanceof IlocRegisterRef) {
-            found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
+            found = IlocUtil.find(file, IlocRegister.class, IlocRegister::getName, key);
         } else if (getElement() instanceof IlocRegister) {
-            found = IlocUtil.find(file, IlocRegister.class, i -> ((IlocRegister) i).getName(), key);
+            found = IlocUtil.find(file, IlocRegister.class, IlocRegister::getName, key);
         } else if (getElement() instanceof IlocVariableRef) {
-            found = IlocUtil.find(file, IlocVariable.class, i -> ((IlocVariable) i).getName(), key);
+            found = IlocUtil.find(file, IlocVariable.class, IlocVariable::getName, key);
         } else {
             return ResolveResult.EMPTY_ARRAY;
         }
@@ -98,13 +98,16 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
             Map<String, LookupElement> result = new HashMap<>();
 
             for (PsiElement element : IlocUtil.find(file, IlocVariable.class)) {
-                String text = element.getText();
+                String text = '@' + ((IlocVariable) element).getName();
                 LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
                 result.put(text, lookupElement);
             }
 
             for (PsiElement element : IlocUtil.find(file, IlocVariableRef.class)) {
-                String text = ((IlocVariableRef) element).getId().getText();
+                if (element == getElement()) {
+                    continue;
+                }
+                String text = '@' + ((IlocVariableRef) element).getName();
                 LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
                 result.put(text, lookupElement);
             }

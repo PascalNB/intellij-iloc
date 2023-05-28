@@ -26,7 +26,7 @@ public class IlocPsiImplUtil {
     public static @NotNull String getName(IlocVariable element) {
         return element.getId().getText();
     }
-    
+
     public static @NotNull String getName(IlocVariableRef element) {
         return element.getText().substring(1);
     }
@@ -46,9 +46,9 @@ public class IlocPsiImplUtil {
     }
 
     public static PsiReference getReference(IlocVariableRef variableRef) {
-        TextRange range = variableRef.getId().getTextRangeInParent();
-        String key = variableRef.getId().getText();
-        return new IlocReference(variableRef, range, key);
+        String name = variableRef.getName();
+        TextRange range = new TextRange(0, name.length() + 1);
+        return new IlocReference(variableRef, range, variableRef.getName());
     }
 
     public static PsiReference getReference(PsiElement element) {
