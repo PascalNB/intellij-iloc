@@ -19,6 +19,10 @@ public class IlocVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitInArg(@NotNull IlocInArg o) {
+    visitPsiElement(o);
+  }
+
   public void visitInstruction(@NotNull IlocInstruction o) {
     visitPsiElement(o);
   }
@@ -32,6 +36,14 @@ public class IlocVisitor extends PsiElementVisitor {
   }
 
   public void visitLabeledBlock(@NotNull IlocLabeledBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOperation(@NotNull IlocOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOutArg(@NotNull IlocOutArg o) {
     visitPsiElement(o);
   }
 

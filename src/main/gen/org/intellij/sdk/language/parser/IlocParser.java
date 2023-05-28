@@ -42,7 +42,7 @@ public class IlocParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // instruction (linebreak+ instruction)*
+  // instruction (linebreak+ (comment | instruction))*
   public static boolean block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block")) return false;
     if (!nextTokenIs(b, "<block>", ID, LSQ)) return false;
@@ -54,7 +54,7 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (linebreak+ instruction)*
+  // (linebreak+ (comment | instruction))*
   private static boolean block_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_1")) return false;
     while (true) {
@@ -65,13 +65,13 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // linebreak+ instruction
+  // linebreak+ (comment | instruction)
   private static boolean block_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = block_1_0_0(b, l + 1);
-    r = r && instruction(b, l + 1);
+    r = r && block_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -87,6 +87,17 @@ public class IlocParser implements PsiParser, LightPsiParser {
       if (!consumeToken(b, LINEBREAK)) break;
       if (!empty_element_parsed_guard_(b, "block_1_0_0", c)) break;
     }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // comment | instruction
+  private static boolean block_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block_1_0_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMENT);
+    if (!r) r = instruction(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -178,16 +189,16 @@ public class IlocParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // integer | string | variableRef | LAB labelRef | registerRef
-  static boolean inArg(PsiBuilder b, int l) {
+  public static boolean inArg(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "inArg")) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, IN_ARG, "<in arg>");
     r = consumeToken(b, INTEGER);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = variableRef(b, l + 1);
     if (!r) r = inArg_3(b, l + 1);
     if (!r) r = registerRef(b, l + 1);
-    exit_section_(b, m, null, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -237,7 +248,8 @@ public class IlocParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // operation | LSQ linebreak* operation (linebreak+ operation)* linebreak* RSQ
+  // operation
+  //     | LSQ linebreak* (comment | operation) (linebreak+ (comment | operation))* linebreak* RSQ comment?
   public static boolean instruction(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction")) return false;
     boolean r;
@@ -248,17 +260,18 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LSQ linebreak* operation (linebreak+ operation)* linebreak* RSQ
+  // LSQ linebreak* (comment | operation) (linebreak+ (comment | operation))* linebreak* RSQ comment?
   private static boolean instruction_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LSQ);
     r = r && instruction_1_1(b, l + 1);
-    r = r && operation(b, l + 1);
+    r = r && instruction_1_2(b, l + 1);
     r = r && instruction_1_3(b, l + 1);
     r = r && instruction_1_4(b, l + 1);
     r = r && consumeToken(b, RSQ);
+    r = r && instruction_1_6(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -274,7 +287,16 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (linebreak+ operation)*
+  // comment | operation
+  private static boolean instruction_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "instruction_1_2")) return false;
+    boolean r;
+    r = consumeToken(b, COMMENT);
+    if (!r) r = operation(b, l + 1);
+    return r;
+  }
+
+  // (linebreak+ (comment | operation))*
   private static boolean instruction_1_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction_1_3")) return false;
     while (true) {
@@ -285,13 +307,13 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // linebreak+ operation
+  // linebreak+ (comment | operation)
   private static boolean instruction_1_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction_1_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = instruction_1_3_0_0(b, l + 1);
-    r = r && operation(b, l + 1);
+    r = r && instruction_1_3_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -311,6 +333,15 @@ public class IlocParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // comment | operation
+  private static boolean instruction_1_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "instruction_1_3_0_1")) return false;
+    boolean r;
+    r = consumeToken(b, COMMENT);
+    if (!r) r = operation(b, l + 1);
+    return r;
+  }
+
   // linebreak*
   private static boolean instruction_1_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction_1_4")) return false;
@@ -319,6 +350,13 @@ public class IlocParser implements PsiParser, LightPsiParser {
       if (!consumeToken(b, LINEBREAK)) break;
       if (!empty_element_parsed_guard_(b, "instruction_1_4", c)) break;
     }
+    return true;
+  }
+
+  // comment?
+  private static boolean instruction_1_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "instruction_1_6")) return false;
+    consumeToken(b, COMMENT);
     return true;
   }
 
@@ -397,11 +435,11 @@ public class IlocParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI? comment?
-  static boolean operation(PsiBuilder b, int l) {
+  public static boolean operation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "operation")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_);
+    Marker m = enter_section_(b, l, _NONE_, OPERATION, null);
     r = function(b, l + 1);
     p = r; // pin = function
     r = r && report_error_(b, operation_1(b, l + 1));
@@ -475,16 +513,16 @@ public class IlocParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // integer | string | variableRef | LAB labelRef | register
-  static boolean outArg(PsiBuilder b, int l) {
+  public static boolean outArg(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "outArg")) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, OUT_ARG, "<out arg>");
     r = consumeToken(b, INTEGER);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = variableRef(b, l + 1);
     if (!r) r = outArg_3(b, l + 1);
     if (!r) r = register(b, l + 1);
-    exit_section_(b, m, null, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

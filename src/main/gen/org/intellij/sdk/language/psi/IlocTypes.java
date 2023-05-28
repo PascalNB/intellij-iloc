@@ -12,9 +12,12 @@ public interface IlocTypes {
   IElementType DECL = new IlocElementType("DECL");
   IElementType FUNCTION = new IlocElementType("FUNCTION");
   IElementType INSTRUCTION = new IlocElementType("INSTRUCTION");
+  IElementType IN_ARG = new IlocElementType("IN_ARG");
   IElementType LABEL = new IlocElementType("LABEL");
   IElementType LABELED_BLOCK = new IlocElementType("LABELED_BLOCK");
   IElementType LABEL_REF = new IlocElementType("LABEL_REF");
+  IElementType OPERATION = new IlocElementType("OPERATION");
+  IElementType OUT_ARG = new IlocElementType("OUT_ARG");
   IElementType REGISTER = new IlocElementType("REGISTER");
   IElementType REGISTER_REF = new IlocElementType("REGISTER_REF");
   IElementType VARIABLE = new IlocElementType("VARIABLE");
@@ -52,6 +55,9 @@ public interface IlocTypes {
       else if (type == INSTRUCTION) {
         return new IlocInstructionImpl(node);
       }
+      else if (type == IN_ARG) {
+        return new IlocInArgImpl(node);
+      }
       else if (type == LABEL) {
         return new IlocLabelImpl(node);
       }
@@ -60,6 +66,12 @@ public interface IlocTypes {
       }
       else if (type == LABEL_REF) {
         return new IlocLabelRefImpl(node);
+      }
+      else if (type == OPERATION) {
+        return new IlocOperationImpl(node);
+      }
+      else if (type == OUT_ARG) {
+        return new IlocOutArgImpl(node);
       }
       else if (type == REGISTER) {
         return new IlocRegisterImpl(node);

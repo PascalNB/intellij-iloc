@@ -8,18 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface IlocInstruction extends PsiElement {
 
   @NotNull
-  List<IlocFunction> getFunctionList();
-
-  @NotNull
-  List<IlocLabelRef> getLabelRefList();
-
-  @NotNull
-  List<IlocRegister> getRegisterList();
-
-  @NotNull
-  List<IlocRegisterRef> getRegisterRefList();
-
-  @NotNull
-  List<IlocVariableRef> getVariableRefList();
+  List<IlocOperation> getOperationList();
 
 }

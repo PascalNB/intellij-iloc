@@ -14,7 +14,7 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Adds syntax highlighting support for ILOC instruction files.
+    Adds language support for ILOC instruction files.
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -60,5 +60,10 @@
         <lang.foldingBuilder
                 language="ILOC"
                 implementationClass="org.intellij.sdk.language.format.IlocFoldingBuilder"/>
+        <platform.backend.documentation.psiTargetProvider
+                implementation="org.intellij.sdk.language.reference.IlocDocumentationProvider"/>
+        <codeInsight.parameterInfo
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.reference.IlocParameterInfoHandler"/>
     </extensions>
 </idea-plugin>

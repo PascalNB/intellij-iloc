@@ -57,4 +57,8 @@ public class IlocPsiImplUtil {
         return new IlocReference(element, range, key);
     }
 
+    public static boolean isControlOperation(IlocOperation operation) {
+        return operation.getOutArgList().isEmpty();
+    }
+
 }

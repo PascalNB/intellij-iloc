@@ -6,4 +6,8 @@ public interface IlocFunctionDeclaration {
 
     String getSignature();
 
+    String getDocumentation();
+
+    boolean isUnofficial();
+
 }

@@ -54,16 +54,18 @@ labeledBlock ::= label block {
     pin=label
 }
 
-block ::= instruction (linebreak+ instruction)*
+block ::= instruction (linebreak+ (comment | instruction))*
 
-instruction ::= operation | LSQ linebreak* operation (linebreak+ operation)* linebreak* RSQ {
+instruction ::= operation
+    | LSQ linebreak* (comment | operation) (linebreak+ (comment | operation))* linebreak* RSQ comment? {
     recoverWhile=recover_instr
 }
 
 private recover_instr ::= !(linebreak | <<eof>>)
 
-private operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI? comment? {
+operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI? comment? {
     pin=function
+    methods=[isControlOperation]
 }
 
 private outArgs ::= outArg (COMMA outArg)*
@@ -72,9 +74,9 @@ private inArgs ::= inArg (COMMA inArg)*
 
 private labels ::= labelRef (COMMA labelRef)*
 
-private inArg ::= integer | string | variableRef | LAB labelRef | registerRef
+inArg ::= integer | string | variableRef | LAB labelRef | registerRef
 
-private outArg ::=  integer | string | variableRef | LAB labelRef | register
+outArg ::=  integer | string | variableRef | LAB labelRef | register
 
 labelRef ::= id {
     methods=[getReference]

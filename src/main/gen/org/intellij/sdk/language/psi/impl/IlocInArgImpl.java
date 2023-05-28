@@ -11,14 +11,14 @@ import static org.intellij.sdk.language.psi.IlocTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.intellij.sdk.language.psi.*;
 
-public class IlocInstructionImpl extends ASTWrapperPsiElement implements IlocInstruction {
+public class IlocInArgImpl extends ASTWrapperPsiElement implements IlocInArg {
 
-  public IlocInstructionImpl(@NotNull ASTNode node) {
+  public IlocInArgImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IlocVisitor visitor) {
-    visitor.visitInstruction(this);
+    visitor.visitInArg(this);
   }
 
   @Override
@@ -28,9 +28,33 @@ public class IlocInstructionImpl extends ASTWrapperPsiElement implements IlocIns
   }
 
   @Override
-  @NotNull
-  public List<IlocOperation> getOperationList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocOperation.class);
+  @Nullable
+  public IlocLabelRef getLabelRef() {
+    return findChildByClass(IlocLabelRef.class);
+  }
+
+  @Override
+  @Nullable
+  public IlocRegisterRef getRegisterRef() {
+    return findChildByClass(IlocRegisterRef.class);
+  }
+
+  @Override
+  @Nullable
+  public IlocVariableRef getVariableRef() {
+    return findChildByClass(IlocVariableRef.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getInteger() {
+    return findChildByType(INTEGER);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getString() {
+    return findChildByType(STRING);
   }
 
 }
