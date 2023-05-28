@@ -1,0 +1,115 @@
+{
+    parserClass="com.pascalnb.iloc.language.parser.IlocParser"
+    psiImplUtilClass="com.pascalnb.iloc.language.psi.impl.IlocPsiImplUtil"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Iloc"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.pascalnb.iloc.language.psi"
+    psiImplPackage="com.pascalnb.iloc.language.psi.impl"
+
+    elementTypeHolderClass="com.pascalnb.iloc.language.psi.IlocTypes"
+    elementTypeClass="com.pascalnb.iloc.language.psi.IlocElementType"
+    tokenTypeClass="com.pascalnb.iloc.language.psi.IlocTokenType"
+
+    tokens=[
+        COLON=':'
+        COMMA=','
+        DARROW='=>'
+        ARROW='->'
+        SEMI=';'
+        LSQ='['
+        RSQ=']'
+        ASS='<-'
+        VAR='@'
+        LAB='#'
+
+        labeldecl='regexp:[a-zA-Z]\w*:'
+        comment='regexp:(//.*)'
+        integer='regexp:-?\d+'
+        id='regexp:[a-zA-Z]\w*'
+        string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+        white_space='regexp:[ \t]+'
+        linebreak='regexp:[\r\n]+'
+    ]
+}
+
+program ::= linebreak* (decls linebreak+ sections | decls | sections)? linebreak* <<eof>>
+
+private decls ::= decl (linebreak+ decl)*
+
+decl ::= variable assignment integer comment? {
+    pin=assignment
+}
+
+private assignment ::= ASS
+
+private sections ::= section (linebreak+ section)* {
+    pin=section
+}
+
+private section ::= comment | labeledBlock | instruction
+
+labeledBlock ::= label block {
+    pin=label
+}
+
+block ::= instruction (linebreak+ (comment | instruction))*
+
+instruction ::= operation
+    | LSQ linebreak* (comment | operation) (linebreak+ (comment | operation))* linebreak* RSQ comment? {
+    recoverWhile=recover_instr
+}
+
+private recover_instr ::= !(linebreak | <<eof>>)
+
+operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI? comment? {
+    pin=function
+    methods=[isControlOperation]
+}
+
+private outArgs ::= outArg (COMMA outArg)*
+
+private inArgs ::= inArg (COMMA inArg)*
+
+private labels ::= labelRef (COMMA labelRef)*
+
+inArg ::= integer | string | variableRef | LAB labelRef | registerRef
+
+outArg ::=  integer | string | variableRef | LAB labelRef | register
+
+labelRef ::= id {
+    methods=[getReference]
+}
+
+registerRef ::= id {
+    methods=[getReference]
+}
+
+variableRef ::= VAR id {
+    methods=[getName getReference]
+}
+
+label ::= labeldecl {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
+
+function ::= id {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
+
+variable ::= id {
+     mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+     implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+     methods=[getName setName getNameIdentifier getReference]
+}
+
+register ::= id {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}

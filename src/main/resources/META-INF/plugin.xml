@@ -26,44 +26,44 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocFileType"
+                implementationClass="com.pascalnb.iloc.language.IlocFileType"
                 fieldName="INSTANCE"
                 language="ILOC"
                 extensions="iloc"/>
         <lang.parserDefinition
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocParserDefinition"/>
+                implementationClass="com.pascalnb.iloc.language.IlocParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.editor.IlocSyntaxHighlighterFactory"/>
+                implementationClass="com.pascalnb.iloc.language.editor.IlocSyntaxHighlighterFactory"/>
         <colorSettingsPage
-                implementation="org.intellij.sdk.language.editor.IlocColorSettingsPage"/>
+                implementation="com.pascalnb.iloc.language.editor.IlocColorSettingsPage"/>
         <annotator
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.IlocAnnotator"/>
+                implementationClass="com.pascalnb.iloc.language.IlocAnnotator"/>
         <completion.contributor
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.reference.IlocCompletionContributor"/>
+                implementationClass="com.pascalnb.iloc.language.reference.IlocCompletionContributor"/>
         <lang.refactoringSupport
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.reference.IlocRefactoringSupportProvider"/>
+                implementationClass="com.pascalnb.iloc.language.reference.IlocRefactoringSupportProvider"/>
         <lang.commenter
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.format.IlocCommenter"/>
+                implementationClass="com.pascalnb.iloc.language.format.IlocCommenter"/>
         <lang.formatter
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.format.IlocFormattingModelBuilder"/>
+                implementationClass="com.pascalnb.iloc.language.format.IlocFormattingModelBuilder"/>
         <codeStyleSettingsProvider
-                implementation="org.intellij.sdk.language.format.IlocCodeStyleSettingsProvider"/>
+                implementation="com.pascalnb.iloc.language.format.IlocCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider
-                implementation="org.intellij.sdk.language.format.IlocLanguageCodeStyleSettingsProvider"/>
+                implementation="com.pascalnb.iloc.language.format.IlocLanguageCodeStyleSettingsProvider"/>
         <lang.foldingBuilder
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.format.IlocFoldingBuilder"/>
+                implementationClass="com.pascalnb.iloc.language.format.IlocFoldingBuilder"/>
         <platform.backend.documentation.psiTargetProvider
-                implementation="org.intellij.sdk.language.reference.IlocDocumentationProvider"/>
+                implementation="com.pascalnb.iloc.language.reference.IlocDocumentationProvider"/>
         <codeInsight.parameterInfo
                 language="ILOC"
-                implementationClass="org.intellij.sdk.language.reference.IlocParameterInfoHandler"/>
+                implementationClass="com.pascalnb.iloc.language.reference.IlocParameterInfoHandler"/>
     </extensions>
 </idea-plugin>

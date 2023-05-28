@@ -1,0 +1,91 @@
+{
+    parserClass="com.pascalnb.iloc.language.parser.IlocParser"
+  parserUtilClass="com.pascalnb.iloc.language.parser.IlocParserUtil"
+    psiImplUtilClass="com.pascalnb.iloc.language.psi.impl.IlocPsiImplUtil"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Iloc"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.pascalnb.iloc.language.psi"
+    psiImplPackage="com.pascalnb.iloc.language.psi.impl"
+
+    elementTypeHolderClass="com.pascalnb.iloc.language.psi.IlocTypes"
+    elementTypeClass="com.pascalnb.iloc.language.psi.IlocElementType"
+    tokenTypeClass="com.pascalnb.iloc.language.psi.IlocTokenType"
+
+    tokens=[
+        COLON=':'
+        COMMA=','
+        DARROW='=>'
+        ARROW='->'
+        SEMI=';'
+        LSQ='['
+        RSQ=']'
+        ASS='<-'
+        MINUS='-'
+        VAR='@'
+        LAB='#'
+        NL='regexp:[\r\n]'
+
+        comment='regexp:(//.*)'
+        integer='regexp:\d+'
+        id='regexp:\w+'
+        string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+        white_space='regexp:[\t ]+'
+    ]
+}
+
+program ::= NL* decl* instruction? (NL* instruction)* NL* <<eof>>
+
+private decl ::= variable ASS integer NL+
+
+private instruction ::= (label COLON)? operation
+    | (label COLON)? LSQ NL* operation (NL+ operation)* NL* RSQ
+
+private operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI?
+
+private outArgs ::= outArg (COMMA outArg)*
+
+private inArgs ::= inArg (COMMA inArg)*
+
+private labels ::= labelRef (COMMA labelRef)*
+
+private inArg ::= integer | string | variableRef | LAB labelRef | registerRef
+
+private outArg ::=  integer | string | variableRef | LAB labelRef | register
+
+labelRef ::= id {
+    methods=[getReference]
+}
+
+registerRef ::= id {
+    methods=[getReference]
+}
+
+variableRef ::= VAR id {
+    methods=[getReference]
+}
+
+label ::= id {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
+
+function ::= id {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
+
+variable ::= id {
+     mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+     implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+     methods=[getName setName getNameIdentifier getReference]
+}
+
+register ::= id {
+    mixin="com.pascalnb.iloc.language.psi.impl.IlocNamedElementImpl"
+    implements="com.pascalnb.iloc.language.psi.IlocNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}

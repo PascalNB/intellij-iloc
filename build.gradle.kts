@@ -6,8 +6,8 @@ plugins {
     id("org.jetbrains.intellij") version "1.13.3"
 }
 
-group = "com.pascalnb"
-version = "1.0-SNAPSHOT"
+group = "com.pascalnb.iloc"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
