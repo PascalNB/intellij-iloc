@@ -57,5 +57,8 @@
                 implementation="org.intellij.sdk.language.format.IlocCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider
                 implementation="org.intellij.sdk.language.format.IlocLanguageCodeStyleSettingsProvider"/>
+        <lang.foldingBuilder
+                language="ILOC"
+                implementationClass="org.intellij.sdk.language.format.IlocFoldingBuilder"/>
     </extensions>
 </idea-plugin>
