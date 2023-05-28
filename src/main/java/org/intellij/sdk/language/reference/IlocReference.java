@@ -107,7 +107,7 @@ public class IlocReference extends PsiReferenceBase<PsiElement> implements PsiPo
                 if (element == getElement()) {
                     continue;
                 }
-                String text = '@' + ((IlocVariableRef) element).getName();
+                String text = element.getText();
                 LookupElement lookupElement = LookupElementBuilder.create(text).withIcon(icon);
                 result.put(text, lookupElement);
             }

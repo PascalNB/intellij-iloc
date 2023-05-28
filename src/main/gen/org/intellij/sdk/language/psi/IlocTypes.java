@@ -13,6 +13,7 @@ public interface IlocTypes {
   IElementType FUNCTION = new IlocElementType("FUNCTION");
   IElementType INSTRUCTION = new IlocElementType("INSTRUCTION");
   IElementType LABEL = new IlocElementType("LABEL");
+  IElementType LABELED_BLOCK = new IlocElementType("LABELED_BLOCK");
   IElementType LABEL_REF = new IlocElementType("LABEL_REF");
   IElementType REGISTER = new IlocElementType("REGISTER");
   IElementType REGISTER_REF = new IlocElementType("REGISTER_REF");
@@ -53,6 +54,9 @@ public interface IlocTypes {
       }
       else if (type == LABEL) {
         return new IlocLabelImpl(node);
+      }
+      else if (type == LABELED_BLOCK) {
+        return new IlocLabeledBlockImpl(node);
       }
       else if (type == LABEL_REF) {
         return new IlocLabelRefImpl(node);

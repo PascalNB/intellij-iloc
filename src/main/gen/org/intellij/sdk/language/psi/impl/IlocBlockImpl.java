@@ -33,10 +33,4 @@ public class IlocBlockImpl extends ASTWrapperPsiElement implements IlocBlock {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, IlocInstruction.class);
   }
 
-  @Override
-  @NotNull
-  public IlocLabel getLabel() {
-    return findNotNullChildByClass(IlocLabel.class);
-  }
-
 }

@@ -16,9 +16,6 @@ public class IlocFormattingModelBuilder implements FormattingModelBuilder {
         return new SpacingBuilder(settings, IlocLanguage.INSTANCE)
             .around(IlocTokenSets.OPERATORS).spaceIf(common.SPACE_AROUND_ASSIGNMENT_OPERATORS)
             .after(IlocTypes.COMMA).spaceIf(common.SPACE_AFTER_COMMA)
-            .after(IlocTypes.LABEL).spaceIf(common.SPACE_AFTER_COLON)
-            .around(IlocTypes.ID).none()
-            .before(IlocTokenSets.BLOCKS).none()
             .before(IlocTypes.LINEBREAK).none()
             ;
     }

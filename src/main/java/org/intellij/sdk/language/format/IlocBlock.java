@@ -9,7 +9,7 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.formatter.FormatterUtil;
 import com.intellij.psi.tree.IElementType;
 import org.intellij.sdk.language.psi.IlocFile;
-import org.intellij.sdk.language.psi.IlocInstruction;
+import org.intellij.sdk.language.psi.IlocLabeledBlock;
 import org.intellij.sdk.language.psi.IlocTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +45,7 @@ public class IlocBlock implements ASTBlock {
             if (type != TokenType.WHITE_SPACE && type != IlocTypes.LINEBREAK) {
                 Block block = new IlocBlock(child,
                     Alignment.createAlignment(true),
-                    computeIndent(child),
+                    Indent.getNoneIndent(),
                     null,
                     spacingBuilder);
                 blocks.add(block);
@@ -53,19 +53,6 @@ public class IlocBlock implements ASTBlock {
             child = child.getTreeNext();
         }
         return blocks;
-    }
-
-    private Indent computeIndent(ASTNode child) {
-        PsiElement childPsi = child.getPsi();
-
-        if (psi instanceof org.intellij.sdk.language.psi.IlocBlock block && childPsi instanceof IlocInstruction) {
-            if (block.getInstructionList().get(0) == childPsi) {
-                return Indent.getNoneIndent();
-            }
-            return Indent.getSmartIndent(Indent.Type.NORMAL);
-        }
-
-        return Indent.getNoneIndent();
     }
 
     @Override
@@ -113,12 +100,13 @@ public class IlocBlock implements ASTBlock {
         if (newChildIndex == 0) {
             return new ChildAttributes(Indent.getNoneIndent(), null);
         }
-        if (psi instanceof IlocFile || psi instanceof PsiComment) {
+        if (psi instanceof IlocFile || psi instanceof PsiComment || psi instanceof IlocLabeledBlock) {
             return ChildAttributes.DELEGATE_TO_PREV_CHILD;
         }
 
-        if (psi instanceof org.intellij.sdk.language.psi.IlocBlock) {
-            return new ChildAttributes(Indent.getSmartIndent(Indent.Type.NORMAL), null);
+        if (psi instanceof org.intellij.sdk.language.psi.IlocBlock block) {
+            int spaces = block.getStartOffsetInParent();
+            return new ChildAttributes(Indent.getSpaceIndent(spaces), null);
         }
 
         return new ChildAttributes(Indent.getNoneIndent(), null);

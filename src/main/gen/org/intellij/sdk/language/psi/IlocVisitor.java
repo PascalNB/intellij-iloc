@@ -31,6 +31,10 @@ public class IlocVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLabeledBlock(@NotNull IlocLabeledBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitRegister(@NotNull IlocRegister o) {
     visitNamedElement(o);
   }

@@ -48,17 +48,19 @@ private sections ::= section (linebreak+ section)* {
     pin=section
 }
 
-private section ::= comment | block | instruction
+private section ::= comment | labeledBlock | instruction
 
-block ::= label instruction (linebreak+ instruction)* {
+labeledBlock ::= label block {
     pin=label
 }
+
+block ::= instruction (linebreak+ instruction)*
 
 instruction ::= operation | LSQ linebreak* operation (linebreak+ operation)* linebreak* RSQ {
     recoverWhile=recover_instr
 }
 
-private recover_instr ::= !(linebreak)
+private recover_instr ::= !(linebreak | <<eof>>)
 
 private operation ::= function inArgs? ((DARROW outArgs) | (ARROW labels))? SEMI? comment? {
     pin=function

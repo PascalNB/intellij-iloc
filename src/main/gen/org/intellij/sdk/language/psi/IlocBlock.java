@@ -10,7 +10,4 @@ public interface IlocBlock extends PsiElement {
   @NotNull
   List<IlocInstruction> getInstructionList();
 
-  @NotNull
-  IlocLabel getLabel();
-
 }
