@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.concurrent.Callable;
 
-public class IlocProgramExecutor implements Runnable {
+public class IlocProgramExecutor implements Callable<String> {
 
     private final InputStream file;
     private final InputStream input;
@@ -26,7 +27,8 @@ public class IlocProgramExecutor implements Runnable {
     }
 
     @Override
-    public void run() {
+    public String call() {
+        String result = null;
         try {
             Program program = Assembler.instance().assemble(CharStreams.fromStream(file));
             file.close();
@@ -35,8 +37,10 @@ public class IlocProgramExecutor implements Runnable {
             simulator.setIn(input);
             simulator.setOut(output);
             simulator.run();
+
+            result = machine.toString();
         } catch (Exception e) {
-            error.print(e);
+            error.println(e);
         }
         try {
             input.close();
@@ -47,6 +51,7 @@ public class IlocProgramExecutor implements Runnable {
         } catch (IOException ignore) {
         }
         error.close();
+        return result;
     }
 
 }

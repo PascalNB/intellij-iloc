@@ -4,6 +4,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 
 import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class IlocProcess extends Process {
 
@@ -12,12 +13,14 @@ public class IlocProcess extends Process {
     private final PipedInputStream errorStream;
     private final Thread thread;
     private final AtomicBoolean finished;
+    private final AtomicReference<String> result;
 
     public IlocProcess(VirtualFile file) {
         inputStream = new PipedInputStream();
         PipedInputStream input = new PipedInputStream();
         errorStream = new PipedInputStream();
         finished = new AtomicBoolean(false);
+        result = new AtomicReference<>(null);
 
         try {
             outputStream = new PipedOutputStream(input);
@@ -27,8 +30,9 @@ public class IlocProcess extends Process {
             InputStream fileStream = file.getInputStream();
 
             thread = new Thread(() -> {
-                new IlocProgramExecutor(fileStream, input, output, error).run();
+                String result = new IlocProgramExecutor(fileStream, input, output, error).call();
                 finished.set(true);
+                IlocProcess.this.result.set(result);
             });
             thread.start();
 
@@ -39,6 +43,10 @@ public class IlocProcess extends Process {
 
     public boolean isFinished() {
         return finished.get();
+    }
+
+    public String getResult() {
+        return result.get();
     }
 
     @Override

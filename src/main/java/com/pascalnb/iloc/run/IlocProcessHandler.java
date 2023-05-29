@@ -23,15 +23,17 @@ public class IlocProcessHandler extends ProcessHandler {
         listener = new Thread(() -> {
             try {
                 while (!process.isFinished()) {
-                    if (inputReader.ready()) {
+                    while (inputReader.ready()) {
                         String line = inputReader.readLine();
                         console.print(line + System.lineSeparator(), ConsoleViewContentType.NORMAL_OUTPUT);
                     }
-                    if (errorReader.ready()) {
+                    while (errorReader.ready()) {
                         String line = errorReader.readLine();
                         console.print(line + System.lineSeparator(), ConsoleViewContentType.ERROR_OUTPUT);
                     }
                 }
+                String result = process.getResult();
+                console.print(result, ConsoleViewContentType.SYSTEM_OUTPUT);
             } catch (IOException ignore) {
                 try {
                     inputReader.close();
