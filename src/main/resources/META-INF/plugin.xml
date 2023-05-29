@@ -76,10 +76,8 @@
                 implementationClass="com.pascalnb.iloc.language.reference.IlocParameterInfoHandler"/>
 
         <configurationType
-                implementation="com.pascalnb.iloc.executor.IlocConfigurationType"/>
+                implementation="com.pascalnb.iloc.run.IlocConfigurationType"/>
         <runConfigurationProducer
-                implementation="com.pascalnb.iloc.executor.IlocConfigurationProducer"/>
-        <!--        <programRunner-->
-        <!--                implementation="com.pascalnb.iloc.executor.IlocProgramRunner"/>-->
+                implementation="com.pascalnb.iloc.run.IlocConfigurationProducer"/>
     </extensions>
 </idea-plugin>

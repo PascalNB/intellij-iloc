@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.ui.ConsoleView;
@@ -12,25 +12,37 @@ import java.io.OutputStream;
 
 public class IlocProcessHandler extends ProcessHandler {
 
-    private final Process process;
+    private final IlocProcess process;
     private final Thread listener;
 
-    public IlocProcessHandler(Process process, ConsoleView console) {
+    public IlocProcessHandler(IlocProcess process, ConsoleView console) {
         this.process = process;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader inputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
         listener = new Thread(() -> {
             try {
-                while (true) {
-                    if (!reader.ready()) {
-                        continue;
+                while (!process.isFinished()) {
+                    if (inputReader.ready()) {
+                        String line = inputReader.readLine();
+                        console.print(line + System.lineSeparator(), ConsoleViewContentType.NORMAL_OUTPUT);
                     }
-                    String line = reader.readLine();
-                    console.print(line + System.lineSeparator(), ConsoleViewContentType.NORMAL_OUTPUT);
+                    if (errorReader.ready()) {
+                        String line = errorReader.readLine();
+                        console.print(line + System.lineSeparator(), ConsoleViewContentType.ERROR_OUTPUT);
+                    }
                 }
             } catch (IOException ignore) {
-                notifyProcessDetached();
+                try {
+                    inputReader.close();
+                } catch (IOException ignore1) {
+                }
+                try {
+                    errorReader.close();
+                } catch (IOException ignore2) {
+                }
             }
+            notifyProcessDetached();
         });
     }
 

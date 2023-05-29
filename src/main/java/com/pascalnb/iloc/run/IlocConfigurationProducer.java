@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.actions.LazyRunConfigurationProducer;
@@ -42,7 +42,7 @@ public class IlocConfigurationProducer extends LazyRunConfigurationProducer<Iloc
     @NotNull
     @Override
     public ConfigurationFactory getConfigurationFactory() {
-        return new IlocConfigurationType().getConfigurationFactories()[0];
+        return IlocConfigurationFactory.getInstance();
     }
 
 }

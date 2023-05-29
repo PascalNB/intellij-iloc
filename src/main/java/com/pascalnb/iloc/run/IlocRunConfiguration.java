@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.Executor;
@@ -55,7 +55,7 @@ class IlocRunConfiguration extends LocatableConfigurationBase<IlocConfigurationO
                 return null;
             }
 
-            Process process = new IlocProcess(virtualFile);
+            IlocProcess process = new IlocProcess(virtualFile);
             ProcessHandler handler = new IlocProcessHandler(process, console);
             console.attachToProcess(handler);
             handler.startNotify();

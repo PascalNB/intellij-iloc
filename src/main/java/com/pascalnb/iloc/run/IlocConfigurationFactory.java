@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -13,8 +13,18 @@ import javax.swing.*;
 
 public class IlocConfigurationFactory extends ConfigurationFactory {
 
-    public IlocConfigurationFactory(IlocConfigurationType type) {
+    private static IlocConfigurationFactory instance = null;
+
+    private IlocConfigurationFactory(IlocConfigurationType type) {
         super(type);
+    }
+
+    public static void setType(IlocConfigurationType type) {
+        instance = new IlocConfigurationFactory(type);
+    }
+
+    public static IlocConfigurationFactory getInstance() {
+        return instance;
     }
 
     @Override

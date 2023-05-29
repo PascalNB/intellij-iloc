@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;

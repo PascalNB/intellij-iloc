@@ -1,31 +1,44 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.openapi.vfs.VirtualFile;
 
 import java.io.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IlocProcess extends Process {
 
     private final PipedInputStream inputStream;
-    private final OutputStream output;
     private final PipedOutputStream outputStream;
-    private final PipedInputStream input;
     private final PipedInputStream errorStream;
-    private final PipedOutputStream error;
+    private final Thread thread;
+    private final AtomicBoolean finished;
 
     public IlocProcess(VirtualFile file) {
         inputStream = new PipedInputStream();
-        input = new PipedInputStream();
+        PipedInputStream input = new PipedInputStream();
         errorStream = new PipedInputStream();
+        finished = new AtomicBoolean(false);
+
         try {
             outputStream = new PipedOutputStream(input);
-            output = new PipedOutputStream(inputStream);
-            error = new PipedOutputStream(errorStream);
-            file.getInputStream().transferTo(output);
-            file.getInputStream().transferTo(System.out);
+            OutputStream output = new PipedOutputStream(inputStream);
+            PipedOutputStream error = new PipedOutputStream(errorStream);
+
+            InputStream fileStream = file.getInputStream();
+
+            thread = new Thread(() -> {
+                new IlocProgramExecutor(fileStream, input, output, error).run();
+                finished.set(true);
+            });
+            thread.start();
+
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public boolean isFinished() {
+        return finished.get();
     }
 
     @Override
@@ -60,6 +73,7 @@ public class IlocProcess extends Process {
 
     @Override
     public int waitFor() throws InterruptedException {
+        thread.join();
         closeAll();
         return 0;
     }
@@ -71,6 +85,7 @@ public class IlocProcess extends Process {
 
     @Override
     public void destroy() {
+        thread.interrupt();
         closeAll();
     }
 

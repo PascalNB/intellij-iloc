@@ -6,6 +6,11 @@ plugins {
     id("org.jetbrains.intellij") version "1.13.3"
 }
 
+dependencies {
+    // https://mvnrepository.com/artifact/org.antlr/antlr4
+    implementation("org.antlr:antlr4:4.13.0")
+}
+
 group = "com.pascalnb.iloc"
 version = "1.0.1"
 

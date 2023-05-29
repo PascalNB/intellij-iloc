@@ -1,4 +1,4 @@
-package com.pascalnb.iloc.executor;
+package com.pascalnb.iloc.run;
 
 import com.intellij.execution.configurations.LocatableRunConfigurationOptions;
 import com.intellij.openapi.components.StoredProperty;
