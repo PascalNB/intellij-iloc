@@ -21,6 +21,15 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <!--    <actions>-->
+    <!--        <action id="com.pascalnb.iloc.executor.IlocExecutorAction"-->
+    <!--                class="com.pascalnb.iloc.executor.IlocExecutorAction"-->
+    <!--                text="Execute ILOC File">-->
+    <!--            <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>-->
+    <!--            <keyboard-shortcut keymap="$default" first-keystroke="shift alt I"/>-->
+    <!--        </action>-->
+    <!--    </actions>-->
+
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
@@ -65,5 +74,12 @@
         <codeInsight.parameterInfo
                 language="ILOC"
                 implementationClass="com.pascalnb.iloc.language.reference.IlocParameterInfoHandler"/>
+
+        <configurationType
+                implementation="com.pascalnb.iloc.executor.IlocConfigurationType"/>
+        <runConfigurationProducer
+                implementation="com.pascalnb.iloc.executor.IlocConfigurationProducer"/>
+        <!--        <programRunner-->
+        <!--                implementation="com.pascalnb.iloc.executor.IlocProgramRunner"/>-->
     </extensions>
 </idea-plugin>
