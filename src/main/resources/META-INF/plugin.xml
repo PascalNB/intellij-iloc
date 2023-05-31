@@ -62,10 +62,6 @@
         <lang.formatter
                 language="ILOC"
                 implementationClass="com.pascalnb.iloc.language.format.IlocFormattingModelBuilder"/>
-        <codeStyleSettingsProvider
-                implementation="com.pascalnb.iloc.language.format.IlocCodeStyleSettingsProvider"/>
-        <langCodeStyleSettingsProvider
-                implementation="com.pascalnb.iloc.language.format.IlocLanguageCodeStyleSettingsProvider"/>
         <lang.foldingBuilder
                 language="ILOC"
                 implementationClass="com.pascalnb.iloc.language.format.IlocFoldingBuilder"/>
