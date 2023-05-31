@@ -22,12 +22,12 @@ public class IlocProcessHandler extends ProcessHandler {
 
         listener = new Thread(() -> {
             try {
-                while (!process.isFinished()) {
-                    while (inputReader.ready()) {
+                while (!process.isFinished() || inputReader.ready() || errorReader.ready()) {
+                    if (inputReader.ready()) {
                         String line = inputReader.readLine();
                         console.print(line + System.lineSeparator(), ConsoleViewContentType.NORMAL_OUTPUT);
                     }
-                    while (errorReader.ready()) {
+                    if (errorReader.ready()) {
                         String line = errorReader.readLine();
                         console.print(line + System.lineSeparator(), ConsoleViewContentType.ERROR_OUTPUT);
                     }
@@ -56,6 +56,7 @@ public class IlocProcessHandler extends ProcessHandler {
 
     @Override
     protected void destroyProcessImpl() {
+        listener.interrupt();
         process.destroy();
         notifyProcessTerminated(process.exitValue());
     }
@@ -63,6 +64,7 @@ public class IlocProcessHandler extends ProcessHandler {
     @Override
     protected void detachProcessImpl() {
         try {
+            listener.interrupt();
             process.waitFor();
             notifyProcessDetached();
         } catch (InterruptedException ignore) {

@@ -3,6 +3,7 @@ package com.pascalnb.iloc.run;
 import com.intellij.openapi.vfs.VirtualFile;
 
 import java.io.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -11,7 +12,7 @@ public class IlocProcess extends Process {
     private final PipedInputStream inputStream;
     private final PipedOutputStream outputStream;
     private final PipedInputStream errorStream;
-    private final Thread thread;
+    private final CompletableFuture<?> thread;
     private final AtomicBoolean finished;
     private final AtomicReference<String> result;
 
@@ -29,12 +30,11 @@ public class IlocProcess extends Process {
 
             InputStream fileStream = file.getInputStream();
 
-            thread = new Thread(() -> {
-                String result = new IlocProgramExecutor(fileStream, input, output, error).call();
-                finished.set(true);
-                IlocProcess.this.result.set(result);
-            });
-            thread.start();
+            thread = CompletableFuture.supplyAsync(() ->
+                    new IlocProgramExecutor(fileStream, input, output, error).call()
+                )
+                .thenAccept(this.result::set)
+                .thenRun(() -> finished.set(true));
 
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -93,7 +93,7 @@ public class IlocProcess extends Process {
 
     @Override
     public void destroy() {
-        thread.interrupt();
+        thread.cancel(true);
         closeAll();
     }
 

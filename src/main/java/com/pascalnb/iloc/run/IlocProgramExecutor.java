@@ -19,10 +19,10 @@ public class IlocProgramExecutor implements Callable<String> {
     private final OutputStream output;
     private final PrintWriter error;
 
-    public IlocProgramExecutor(InputStream file, InputStream input, OutputStream ouput, OutputStream error) {
+    public IlocProgramExecutor(InputStream file, InputStream input, OutputStream output, OutputStream error) {
         this.file = file;
         this.input = input;
-        this.output = ouput;
+        this.output = output;
         this.error = new PrintWriter(error);
     }
 
