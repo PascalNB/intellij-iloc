@@ -10,6 +10,7 @@ public class IlocFormattingModelBuilder implements FormattingModelBuilder {
 
     private static SpacingBuilder createSpaceBuilder(CodeStyleSettings settings) {
         return new SpacingBuilder(settings, IlocLanguage.INSTANCE)
+            .after(IlocTypes.COMMA).spaces(1)
             .before(IlocTypes.LINEBREAK).none();
     }
 
