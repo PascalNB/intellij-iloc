@@ -19,12 +19,11 @@ public class IlocAnnotator implements Annotator {
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         PsiFile file = element.getContainingFile();
         PsiElement parent = element.getParent();
+
         if (parent instanceof IlocFunction func && func.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.FUNCTION);
-            return;
-        }
 
-        if (parent instanceof IlocLabel label && label.getLabeldecl() == element) {
+        } else if (parent instanceof IlocLabel label && label.getLabeldecl() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.LABEL);
             String name = label.getName();
 
@@ -39,31 +38,16 @@ public class IlocAnnotator implements Annotator {
                     "Label \"" + name + "\" is unused");
             }
 
-            return;
-        }
-
-        if (parent instanceof IlocLabelRef label && label.getId() == element) {
+        } else if (parent instanceof IlocLabelRef label && label.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.LABEL);
-            String name = label.getText();
 
-            List<PsiElement> found = IlocUtil.find(file, IlocLabel.class, IlocLabel::getName, label.getText());
-            if (found.isEmpty()) {
-                annotate(holder, element, HighlightSeverity.WARNING, ProblemHighlightType.LIKE_UNKNOWN_SYMBOL,
-                    "Label \"" + name + "\" has not been declared");
-            }
-
-            return;
-        }
-
-        if (parent instanceof IlocRegister register && register.getId() == element) {
+        } else if (parent instanceof IlocRegister register && register.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.REGISTER);
-        }
 
-        if (parent instanceof IlocRegisterRef register && register.getId() == element) {
+        } else if (parent instanceof IlocRegisterRef register && register.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.REGISTER);
-        }
 
-        if (parent instanceof IlocVariable variable && variable.getId() == element) {
+        } else if (parent instanceof IlocVariable variable && variable.getId() == element) {
             highlight(holder, element, IlocSyntaxHighlighter.VARIABLE);
 
             String name = variable.getName();
@@ -77,9 +61,8 @@ public class IlocAnnotator implements Annotator {
                 annotate(holder, element, HighlightSeverity.WEAK_WARNING, ProblemHighlightType.LIKE_UNUSED_SYMBOL,
                     "Variable \"" + name + "\" is unused");
             }
-        }
 
-        if (parent instanceof IlocVariableRef) {
+        } else if (parent instanceof IlocVariableRef) {
             highlight(holder, element, IlocSyntaxHighlighter.VARIABLE);
         }
 
